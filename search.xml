@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Vmess + TLS + WS 实现科学上网</title>
+    <url>/2023/03/12/vmess-ws-tls-web%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+    <content><![CDATA[<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li><p>vps购买：<a class="link"   href="https://bandwagonhost.com/" >https://bandwagonhost.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>               #系统使用：Debian 10</p>
+</li>
+<li><p><em>优惠码：<code>BWHNCXNVXV</code></em>     </p>
+</li>
+<li><p>域名购买：<a class="link"   href="https://namesilo.com/" >https://namesilo.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>     </p>
+</li>
+<li><p>ssh工具：<a class="link"   href="https://www.hostbuf.com/t/988.html" >https://www.hostbuf.com/t/988.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+<h3 id="节点搭建"><a href="#节点搭建" class="headerlink" title="节点搭建"></a>节点搭建</h3><div class="note note-primary icon-padding"><i class="note-icon fa-solid fa-circle-arrow-right"></i><p>直接全选复制粘贴即可</p>
+</div> 
+<p><code>apt update -y &amp;&amp; apt-get install vim curl wget  -y</code></p>
+<h6 id="安装x-ui面板"><a href="#安装x-ui面板" class="headerlink" title="安装x-ui面板"></a>安装x-ui面板</h6><p>X-ui出于安全考虑，安装&#x2F;更新完成后需要强制修改端口与账户密码，step by step 即可<br>安装完成后输入<code>x-ui</code>即可管理面板<br><code>bash &lt;(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</code><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/xui-1.png"
+                      alt="link"
+                ><br>配置如上所示端口随便，id用默认生成的就行，点击查看按钮复制链接导入V2ray<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/xui-2.png"
+                      alt="link"
+                ><br>对应的面板设置，重启完面板后我们是登录不进去的，因为还没配置nginx</p>
+<h6 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h6><pre><code>apt install nginx socat -y
+#安装acme：
+curl https://get.acme.sh | sh
+#添加软链接：
+ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
+#切换CA机构： 
+acme.sh --set-default-ca --server letsencrypt
+#申请证书： 
+acme.sh  --issue -d 你的域名 -k ec-256 --webroot  /var/www/html
+#安装证书：
+acme.sh --install-cert -d 你的域名 --ecc --key-file       /etc/x-ui/server.key  --fullchain-file /etc/x-ui/server.crt --reloadcmd     &quot;systemctl force-reload nginx&quot;
+</code></pre>
+<h6 id="配置nginx-conf"><a href="#配置nginx-conf" class="headerlink" title="配置nginx.conf"></a>配置nginx.conf</h6><p><code>vim /etc/nginx/nginx.conf</code> 替换原有配置文件。</p>
+<pre><code>user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;    
+events &#123;
+    worker_connections 1024;
+&#125;
+
+http &#123;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    gzip on;
+
+    server &#123;
+        listen 443 ssl;
+
+        server_name nicename.co;  #你的域名
+        ssl_certificate       /etc/x-ui/server.crt;  #证书位置
+        ssl_certificate_key   /etc/x-ui/server.key; #私钥位置
+
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:MozSSL:10m;
+        ssl_session_tickets off;
+        ssl_protocols    TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers off;
+
+        location / &#123;
+            proxy_pass https://bing.com; #伪装网址
+            proxy_redirect off;
+            proxy_ssl_server_name on;
+            sub_filter_once off;
+            sub_filter &quot;bing.com&quot; $server_name;
+            proxy_set_header Host &quot;bing.com&quot;;
+            proxy_set_header Referer $http_referer;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header User-Agent $http_user_agent;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header Accept-Encoding &quot;&quot;;
+            proxy_set_header Accept-Language &quot;zh-CN&quot;;
+        &#125;
+
+
+        location /ray &#123;   #分流路径
+            proxy_redirect off;
+            proxy_pass http://127.0.0.1:10000; #Xray端口
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection &quot;upgrade&quot;;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        &#125;
+
+        location /xui &#123;   #xui路径
+            proxy_redirect off;
+            proxy_pass http://127.0.0.1:9999;  #xui监听端口
+            proxy_http_version 1.1;
+            proxy_set_header Host $host;
+        &#125;
+    &#125;
+
+    server &#123;
+        listen 80;
+        location /.well-known/ &#123;
+               root /var/www/html;
+            &#125;
+        location / &#123;
+                rewrite ^(.*)$ https://$host$1 permanent;
+            &#125;
+    &#125;
+&#125;
+</code></pre>
+<h6 id="多租户"><a href="#多租户" class="headerlink" title="多租户"></a>多租户</h6><p>通过修改nginx的配置文件实现ws path路径分流  </p>
+<pre><code>location /ray &#123;   #分流路径
+proxy_redirect off;
+proxy_pass http://127.0.0.1:10000; #Xray端口
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection &quot;upgrade&quot;;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&#125;
+</code></pre>
+<div class="note note-danger icon-padding"><i class="note-icon fa-solid fa-times-circle"></i><p>TLS开启之后记得也要去你的域名服务商处更改为端对端完全加密，不然会提示重定向次数过多</p>
+</div>]]></content>
+      <categories>
+        <category>Network-operation</category>
+      </categories>
+      <tags>
+        <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何用Hexo搭建个人Blog</title>
+    <url>/2023/03/11/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BABlog/</url>
+    <content><![CDATA[<h3 id="Hexo环境准备"><a href="#Hexo环境准备" class="headerlink" title="Hexo环境准备"></a>Hexo环境准备</h3><h5 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h5><p>直接到官网上下载安装即可<a class="link"   href="https://nodejs.org/en/download/" >https://nodejs.org/en/download/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<ul>
+<li>Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</li>
+<li>Node自带npm</li>
+<li><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>      #更换npm源</li>
+</ul>
+<h5 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h5><ul>
+<li>Windows：下载并安装 git.</li>
+<li>Mac：使用 Homebrew, MacPorts 或者下载 安装程序。</li>
+<li>Linux (Ubuntu, Debian)：sudo apt-get install git-core</li>
+<li>Linux (Fedora, Red Hat, CentOS)：sudo yum install git-core</li>
+<li>安装完之后到你要安装的路径下右键打开”git bash here”</li>
+</ul>
+<h3 id="开始安装Hexo"><a href="#开始安装Hexo" class="headerlink" title="开始安装Hexo"></a>开始安装Hexo</h3><pre><code>npm install -g hexo-cli
+or
+cnpm install -g hexo-cli
+</code></pre>
+<ul>
+<li>输入hexo -v 查看版本</li>
+</ul>
+<h5 id="新建Blog文件夹-x2F-初始化Hexo-x2F-安装npm"><a href="#新建Blog文件夹-x2F-初始化Hexo-x2F-安装npm" class="headerlink" title="新建Blog文件夹&#x2F;初始化Hexo&#x2F;安装npm"></a>新建Blog文件夹&#x2F;初始化Hexo&#x2F;安装npm</h5><pre><code>hexo init Blog          #初始化Hexo
+cd blog
+npm install             #安装npm
+</code></pre>
+<h5 id="启动服务Site"><a href="#启动服务Site" class="headerlink" title="启动服务Site"></a>启动服务Site</h5><pre><code>hexo g                  #生成 hexo generate 
+hexo s                  #启动服务预览 hexo server                           
+</code></pre>
+<ul>
+<li>本地访问<a class="link"   href="http://localhost:4000/" >http://localhost:4000/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 至此Hexo就搭建好了。</li>
+</ul>
+<h3 id="将网站托管至GitHub"><a href="#将网站托管至GitHub" class="headerlink" title="将网站托管至GitHub"></a>将网站托管至GitHub</h3><h5 id="1-新建仓库和Token"><a href="#1-新建仓库和Token" class="headerlink" title="1. 新建仓库和Token"></a>1. 新建仓库和Token</h5><p>仓库名称格式：用户名+GitHub.io<br>Token: 登录github设置setting-&gt;Developer Settings-&gt;Prosonal access tokens 注意勾选权限！</p>
+<h5 id="2-安装upload插件"><a href="#2-安装upload插件" class="headerlink" title="2. 安装upload插件"></a>2. 安装upload插件</h5><p><code>npm install hexo-deployer-git --save</code></p>
+<h5 id="3-修改Hexo配置文件指定仓库路径"><a href="#3-修改Hexo配置文件指定仓库路径" class="headerlink" title="3. 修改Hexo配置文件指定仓库路径"></a>3. 修改Hexo配置文件指定仓库路径</h5><p>在你blog文件夹下找到”_config.yml,ctrl+f 定位到deploy配置,注意格式deploy下的配置要缩进两行。</p>
+<pre><code>deploy:
+  type: git
+  repo: https://&lt;Token&gt;@github.com/用户名/仓库名.git
+  branch: main
+</code></pre>
+<h5 id="4-推送Site到Github"><a href="#4-推送Site到Github" class="headerlink" title="4. 推送Site到Github"></a>4. 推送Site到Github</h5><p><code>hexo d</code>                      #部署hexo deploy</p>
+<h5 id="5-访问地址-https-x2F-x2F-仓库名-github-io-x2F"><a href="#5-访问地址-https-x2F-x2F-仓库名-github-io-x2F" class="headerlink" title="5. 访问地址 https:&#x2F;&#x2F;仓库名.github.io&#x2F;"></a>5. 访问地址 https:&#x2F;&#x2F;仓库名.github.io&#x2F;</h5><h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>想要更换掉固定模板风格，你可以在GitHub搜索Hexo主题或者去到<a class="link"   href="https://hexo.io/themes/%E4%B8%8B%E6%8C%91%E9%80%89%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF%EF%BC%8C%E4%B9%8B%E5%90%8E%E6%8C%89%E7%85%A7%E8%AF%A5%E6%A8%A1%E6%9D%BF%E4%B8%8B%E7%9A%84How" >https://hexo.io/themes/下挑选自定义模板，之后按照该模板下的How <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> To Use? step by step 即可。<br>一般步骤为：</p>
+<ol>
+<li>下载</li>
+<li>把包丢到themes文件夹下面</li>
+<li>配置Hero的_config.yml，修改”themes: 模板名”</li>
+<li>本地调试完之后，我们就可以推送到GitHub上了。</li>
+<li>cd到你的blog文件夹下Use commond:<code>hexo clean</code> -&gt; <code>hexo g</code> -&gt; <code>hexo d</code></li>
+<li>访问地址 https:&#x2F;&#x2F;仓库名.github.io&#x2F;</li>
+</ol>
+<h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><p>Hexo使用Markdown语法，它可以使普通文本具有一定的格式。<br>cd至blog文件下 <code>hexo new &quot;my frist blog&quot;</code><br>查看source资源下有没有我们刚刚创建的文章<br>之后就是发布的步骤&#x2F;&#x2F;清理hexo clean&#x2F;&#x2F;构建hexo g&#x2F;&#x2F;上传hexo d<br>（如果上传报错，大多是网络原因，多上传几次即可）</p>
+<h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><p>有时我们不满足主题自由的一些页面，希望自己添加一些页面。<br>我们可以新建页面,新建页面则会在hexo的source中新建该页面文件并生成md文件，这就是你要编辑的博客页了。<br><code>hexo new page &quot;my home page&quot;</code><br>然后打开主题的配置文件_config.yml，在菜单属性menu中的添加如下（注意不是Hexo的配置文件）<br>将页面路径联接到页面上去（是一个key:value）左侧定义菜单,右侧定义页面</p>
+<h4 id="Hexo命令清单"><a href="#Hexo命令清单" class="headerlink" title="Hexo命令清单"></a>Hexo命令清单</h4><pre><code>npm install hexo -g                      #安装Hexo
+npm update hexo -g                       #升级
+hexo init                                #初始化博客
+hexo server                              #Hexo会监视文件变动并自动更新，无须重启服务器
+hexo server -s                           #静态模式
+hexo server -p 5000                      #更改端口
+hexo server -i 192.168.1.1               #自定义 IP
+hexo clean                               #清除缓存，若是网页正常情况下可以忽略这条命令
+hexo new draft &quot;文件名&quot;                  #新建草稿文件
+hexo server --draft                      #预览草稿文件
+hexo publish &quot;文件名&quot;                    #发布草稿文件     
+</code></pre>
+<h4 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h4><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot;          #新建文章
+hexo g == hexo generate                          #生成      
+hexo s == hexo server                            #启动服务预览
+hexo d == hexo deploy                            #部署
+</code></pre>
+]]></content>
+      <categories>
+        <category>Other-operation</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
