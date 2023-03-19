@@ -386,8 +386,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-03-16 23:11:31</span>
-            <span class="mobile">2023-03-16 23:11</span>
+            <span class="pc">2023-03-19 12:59:10</span>
+            <span class="mobile">2023-03-19 12:59</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -420,7 +420,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-file-word"></i>&nbsp;<span>911 字</span>
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>909 字</span>
         </span>
     
     
@@ -491,23 +491,9 @@ hexo s                  #启动服务预览 hexo server
 </ol>
 <h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><p>Hexo使用Markdown语法，它可以使普通文本具有一定的格式。<br>cd至blog文件下 <code>hexo new &quot;my frist blog&quot;</code><br>查看source资源下有没有我们刚刚创建的文章<br>之后就是发布的步骤&#x2F;&#x2F;清理hexo clean&#x2F;&#x2F;构建hexo g&#x2F;&#x2F;上传hexo d<br>（如果上传报错，大多是网络原因，多上传几次即可）</p>
 <h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><p>有时我们不满足主题自由的一些页面，希望自己添加一些页面。<br>我们可以新建页面,新建页面则会在hexo的source中新建该页面文件并生成md文件，这就是你要编辑的博客页了。<br><code>hexo new page &quot;my home page&quot;</code><br>然后打开主题的配置文件_config.yml，在菜单属性menu中的添加如下（注意不是Hexo的配置文件）<br>将页面路径联接到页面上去（是一个key:value）左侧定义菜单,右侧定义页面</p>
-<h4 id="Hexo命令清单"><a href="#Hexo命令清单" class="headerlink" title="Hexo命令清单"></a>Hexo命令清单</h4><pre><code>npm install hexo -g                      #安装Hexo
-npm update hexo -g                       #升级
-hexo init                                #初始化博客
-hexo server                              #Hexo会监视文件变动并自动更新，无须重启服务器
-hexo server -s                           #静态模式
-hexo server -p 5000                      #更改端口
-hexo server -i 192.168.1.1               #自定义 IP
-hexo clean                               #清除缓存，若是网页正常情况下可以忽略这条命令
-hexo new draft &quot;文件名&quot;                  #新建草稿文件
-hexo server --draft                      #预览草稿文件
-hexo publish &quot;文件名&quot;                    #发布草稿文件     
-</code></pre>
-<h4 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h4><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot;          #新建文章
-hexo g == hexo generate                          #生成      
-hexo s == hexo server                            #启动服务预览
-hexo d == hexo deploy                            #部署
-</code></pre>
+<h4 id="Hexo命令清单"><a href="#Hexo命令清单" class="headerlink" title="Hexo命令清单"></a>Hexo命令清单</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g                      #安装Hexo</span><br><span class="line">npm update hexo -g                       #升级</span><br><span class="line">hexo init                                #初始化博客</span><br><span class="line">hexo server                              #Hexo会监视文件变动并自动更新，无须重启服务器</span><br><span class="line">hexo server -s                           #静态模式</span><br><span class="line">hexo server -p 5000                      #更改端口</span><br><span class="line">hexo server -i 192.168.1.1               #自定义 IP</span><br><span class="line">hexo clean                               #清除缓存，若是网页正常情况下可以忽略这条命令</span><br><span class="line">hexo new draft &quot;文件名&quot;                  #新建草稿文件</span><br><span class="line">hexo server --draft                      #预览草稿文件</span><br><span class="line">hexo publish &quot;文件名&quot;                    #发布草稿文件     </span><br></pre></td></tr></table></figure></div>
+<h4 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot;          #新建文章</span><br><span class="line">hexo g == hexo generate                          #生成      </span><br><span class="line">hexo s == hexo server                            #启动服务预览</span><br><span class="line">hexo d == hexo deploy                            #部署</span><br></pre></td></tr></table></figure></div>
+
 
             </div>
 

@@ -27,110 +27,11 @@
                      data-src="/images/xui-2.png"
                       alt="link"
                 ><br>对应的面板设置，重启完面板后我们是登录不进去的，因为还没配置nginx</p>
-<h6 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h6><pre><code>apt install nginx socat -y
-#安装acme：
-curl https://get.acme.sh | sh
-#添加软链接：
-ln -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh
-#切换CA机构： 
-acme.sh --set-default-ca --server letsencrypt
-#申请证书： 
-acme.sh  --issue -d 你的域名 -k ec-256 --webroot  /var/www/html
-#安装证书：
-acme.sh --install-cert -d 你的域名 --ecc --key-file       /etc/x-ui/server.key  --fullchain-file /etc/x-ui/server.crt --reloadcmd     &quot;systemctl force-reload nginx&quot;
-</code></pre>
+<h6 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h6><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">apt install nginx socat -y</span><br><span class="line"><span class="comment">#安装acme：</span></span><br><span class="line">curl https://get.acme.sh | sh</span><br><span class="line"><span class="comment">#添加软链接：</span></span><br><span class="line"><span class="built_in">ln</span> -s  /root/.acme.sh/acme.sh /usr/local/bin/acme.sh</span><br><span class="line"><span class="comment">#切换CA机构： </span></span><br><span class="line">acme.sh --set-default-ca --server letsencrypt</span><br><span class="line"><span class="comment">#申请证书： </span></span><br><span class="line">acme.sh  --issue -d 你的域名 -k ec-256 --webroot  /var/www/html</span><br><span class="line"><span class="comment">#安装证书：</span></span><br><span class="line">acme.sh --install-cert -d 你的域名 --ecc --key-file       /etc/x-ui/server.key  --fullchain-file /etc/x-ui/server.crt --reloadcmd     <span class="string">&quot;systemctl force-reload nginx&quot;</span></span><br></pre></td></tr></table></figure></div>
 <h6 id="配置nginx-conf"><a href="#配置nginx-conf" class="headerlink" title="配置nginx.conf"></a>配置nginx.conf</h6><p><code>vim /etc/nginx/nginx.conf</code> 替换原有配置文件。</p>
-<pre><code>user www-data;
-worker_processes auto;
-pid /run/nginx.pid;
-include /etc/nginx/modules-enabled/*.conf;    
-events &#123;
-    worker_connections 1024;
-&#125;
-
-http &#123;
-    sendfile on;
-    tcp_nopush on;
-    tcp_nodelay on;
-    keepalive_timeout 65;
-    types_hash_max_size 2048;
-
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    gzip on;
-
-    server &#123;
-        listen 443 ssl;
-
-        server_name nicename.co;  #你的域名
-        ssl_certificate       /etc/x-ui/server.crt;  #证书位置
-        ssl_certificate_key   /etc/x-ui/server.key; #私钥位置
-
-        ssl_session_timeout 1d;
-        ssl_session_cache shared:MozSSL:10m;
-        ssl_session_tickets off;
-        ssl_protocols    TLSv1.2 TLSv1.3;
-        ssl_prefer_server_ciphers off;
-
-        location / &#123;
-            proxy_pass https://bing.com; #伪装网址
-            proxy_redirect off;
-            proxy_ssl_server_name on;
-            sub_filter_once off;
-            sub_filter &quot;bing.com&quot; $server_name;
-            proxy_set_header Host &quot;bing.com&quot;;
-            proxy_set_header Referer $http_referer;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header User-Agent $http_user_agent;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto https;
-            proxy_set_header Accept-Encoding &quot;&quot;;
-            proxy_set_header Accept-Language &quot;zh-CN&quot;;
-        &#125;
-
-
-        location /ray &#123;   #分流路径
-            proxy_redirect off;
-            proxy_pass http://127.0.0.1:10000; #Xray端口
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection &quot;upgrade&quot;;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        &#125;
-
-        location /xui &#123;   #xui路径
-            proxy_redirect off;
-            proxy_pass http://127.0.0.1:9999;  #xui监听端口
-            proxy_http_version 1.1;
-            proxy_set_header Host $host;
-        &#125;
-    &#125;
-
-    server &#123;
-        listen 80;
-        location /.well-known/ &#123;
-               root /var/www/html;
-            &#125;
-        location / &#123;
-                rewrite ^(.*)$ https://$host$1 permanent;
-            &#125;
-    &#125;
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">user www-data;</span><br><span class="line">worker_processes auto;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line">include /etc/nginx/modules-enabled/*.conf;    </span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    sendfile on;</span><br><span class="line">    tcp_nopush on;</span><br><span class="line">    tcp_nodelay on;</span><br><span class="line">    keepalive_timeout 65;</span><br><span class="line">    types_hash_max_size 2048;</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/mime.types;</span><br><span class="line">    default_type application/octet-stream;</span><br><span class="line">    gzip on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line"></span><br><span class="line">        server_name nicename.co;  <span class="comment">#你的域名</span></span><br><span class="line">        ssl_certificate       /etc/x-ui/server.crt;  <span class="comment">#证书位置</span></span><br><span class="line">        ssl_certificate_key   /etc/x-ui/server.key; <span class="comment">#私钥位置</span></span><br><span class="line"></span><br><span class="line">        ssl_session_timeout 1d;</span><br><span class="line">        ssl_session_cache shared:MozSSL:10m;</span><br><span class="line">        ssl_session_tickets off;</span><br><span class="line">        ssl_protocols    TLSv1.2 TLSv1.3;</span><br><span class="line">        ssl_prefer_server_ciphers off;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass https://bing.com; <span class="comment">#伪装网址</span></span><br><span class="line">            proxy_redirect off;</span><br><span class="line">            proxy_ssl_server_name on;</span><br><span class="line">            sub_filter_once off;</span><br><span class="line">            sub_filter <span class="string">&quot;bing.com&quot;</span> <span class="variable">$server_name</span>;</span><br><span class="line">            proxy_set_header Host <span class="string">&quot;bing.com&quot;</span>;</span><br><span class="line">            proxy_set_header Referer <span class="variable">$http_referer</span>;</span><br><span class="line">            proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">            proxy_set_header User-Agent <span class="variable">$http_user_agent</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-Proto https;</span><br><span class="line">            proxy_set_header Accept-Encoding <span class="string">&quot;&quot;</span>;</span><br><span class="line">            proxy_set_header Accept-Language <span class="string">&quot;zh-CN&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location /ray &#123;   <span class="comment">#分流路径</span></span><br><span class="line">            proxy_redirect off;</span><br><span class="line">            proxy_pass http://127.0.0.1:10000; <span class="comment">#Xray端口</span></span><br><span class="line">            proxy_http_version 1.1;</span><br><span class="line">            proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">            proxy_set_header Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">            proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">            proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">            proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /xui &#123;   <span class="comment">#xui路径</span></span><br><span class="line">            proxy_redirect off;</span><br><span class="line">            proxy_pass http://127.0.0.1:9999;  <span class="comment">#xui监听端口</span></span><br><span class="line">            proxy_http_version 1.1;</span><br><span class="line">            proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        location /.well-known/ &#123;</span><br><span class="line">               root /var/www/html;</span><br><span class="line">            &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                rewrite ^(.*)$ https://$host<span class="variable">$1</span> permanent;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h6 id="多租户"><a href="#多租户" class="headerlink" title="多租户"></a>多租户</h6><p>通过修改nginx的配置文件实现ws path路径分流  </p>
-<pre><code>location /ray &#123;   #分流路径
-proxy_redirect off;
-proxy_pass http://127.0.0.1:10000; #Xray端口
-proxy_http_version 1.1;
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection &quot;upgrade&quot;;
-proxy_set_header Host $host;
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-&#125;
-</code></pre>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">location /ray &#123;   <span class="comment">#分流路径</span></span><br><span class="line">proxy_redirect off;</span><br><span class="line">proxy_pass http://127.0.0.1:10000; <span class="comment">#Xray端口</span></span><br><span class="line">proxy_http_version 1.1;</span><br><span class="line">proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">proxy_set_header Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <div class="note note-danger icon-padding"><i class="note-icon fa-solid fa-times-circle"></i><p>TLS开启之后记得也要去你的域名服务商处更改为端对端完全加密，不然会提示重定向次数过多</p>
 </div>]]></content>
       <categories>
@@ -193,23 +94,9 @@ hexo s                  #启动服务预览 hexo server
 </ol>
 <h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><p>Hexo使用Markdown语法，它可以使普通文本具有一定的格式。<br>cd至blog文件下 <code>hexo new &quot;my frist blog&quot;</code><br>查看source资源下有没有我们刚刚创建的文章<br>之后就是发布的步骤&#x2F;&#x2F;清理hexo clean&#x2F;&#x2F;构建hexo g&#x2F;&#x2F;上传hexo d<br>（如果上传报错，大多是网络原因，多上传几次即可）</p>
 <h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><p>有时我们不满足主题自由的一些页面，希望自己添加一些页面。<br>我们可以新建页面,新建页面则会在hexo的source中新建该页面文件并生成md文件，这就是你要编辑的博客页了。<br><code>hexo new page &quot;my home page&quot;</code><br>然后打开主题的配置文件_config.yml，在菜单属性menu中的添加如下（注意不是Hexo的配置文件）<br>将页面路径联接到页面上去（是一个key:value）左侧定义菜单,右侧定义页面</p>
-<h4 id="Hexo命令清单"><a href="#Hexo命令清单" class="headerlink" title="Hexo命令清单"></a>Hexo命令清单</h4><pre><code>npm install hexo -g                      #安装Hexo
-npm update hexo -g                       #升级
-hexo init                                #初始化博客
-hexo server                              #Hexo会监视文件变动并自动更新，无须重启服务器
-hexo server -s                           #静态模式
-hexo server -p 5000                      #更改端口
-hexo server -i 192.168.1.1               #自定义 IP
-hexo clean                               #清除缓存，若是网页正常情况下可以忽略这条命令
-hexo new draft &quot;文件名&quot;                  #新建草稿文件
-hexo server --draft                      #预览草稿文件
-hexo publish &quot;文件名&quot;                    #发布草稿文件     
-</code></pre>
-<h4 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h4><pre><code>hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot;          #新建文章
-hexo g == hexo generate                          #生成      
-hexo s == hexo server                            #启动服务预览
-hexo d == hexo deploy                            #部署
-</code></pre>
+<h4 id="Hexo命令清单"><a href="#Hexo命令清单" class="headerlink" title="Hexo命令清单"></a>Hexo命令清单</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo -g                      #安装Hexo</span><br><span class="line">npm update hexo -g                       #升级</span><br><span class="line">hexo init                                #初始化博客</span><br><span class="line">hexo server                              #Hexo会监视文件变动并自动更新，无须重启服务器</span><br><span class="line">hexo server -s                           #静态模式</span><br><span class="line">hexo server -p 5000                      #更改端口</span><br><span class="line">hexo server -i 192.168.1.1               #自定义 IP</span><br><span class="line">hexo clean                               #清除缓存，若是网页正常情况下可以忽略这条命令</span><br><span class="line">hexo new draft &quot;文件名&quot;                  #新建草稿文件</span><br><span class="line">hexo server --draft                      #预览草稿文件</span><br><span class="line">hexo publish &quot;文件名&quot;                    #发布草稿文件     </span><br></pre></td></tr></table></figure></div>
+<h4 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot;          #新建文章</span><br><span class="line">hexo g == hexo generate                          #生成      </span><br><span class="line">hexo s == hexo server                            #启动服务预览</span><br><span class="line">hexo d == hexo deploy                            #部署</span><br></pre></td></tr></table></figure></div>
+
 ]]></content>
       <categories>
         <category>Other-operation</category>
@@ -227,35 +114,7 @@ hexo d == hexo deploy                            #部署
 <li>下载 Git Linux 版本  <a class="link"   href="https://git-scm.com/download/linux" >https://git-scm.com/download/linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>由于国内去官网下载Git比较慢，故我们选择阿里的镜像地址去下载 <a class="link"   href="https://npm.taobao.org/mirrors/git-for-windows/" >https://npm.taobao.org/mirrors/git-for-windows/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 根据官网最新的版本，我们在阿里镜像中找到对应的下载就行，速度飞快。安装过程直接按照默认的就行。</li>
 </ul>
 <hr>
-<h3 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h3><div class="tabs" id="tab-first-tab"><ul class="nav-tabs"><li class="tab active"><a class="#first-tab-1">简单使用</a></li><li class="tab"><a class="#first-tab-2">进阶使用</a></li><li class="tab"><a class="#first-tab-3">高阶使用</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-tab-1"><pre><code>git init                                        #初始化仓库
-git clone                                       #从本地拉取一个仓库可以使用 git clone /path/to/repository
-                                                #从远端拉取一个仓库可以使用 git clone username@host:/path/to/repository
-git add &lt;filename&gt;                              #将改动添加至缓存区,也可以使用（git add *）
-git commit -m &lt;&#39;information&#39;&gt;                   #提交改动
-git push origin &lt;master&gt;                        #推送到仓库
-git remote add origin &lt;server&gt;                  #添加远程服务器
-git checkout -b &lt;feature-X&gt;                     #创建一个分支
-git checkout &lt;feature&gt;                          #切换分支
-git branch -d &lt;feature-X&gt;                       #删除分支
-git push origin &lt;branch&gt;                        #推送分支（未推送到仓库前，他人是无法看见的）
-git pull                                        #更新本地仓库至最新（也可以在后面加上你的远程仓库地址）
-git merage &lt;branch&gt;                             #合并分支（注意你当前分支的切换）
-git tag &lt;lable&gt; &lt;ID&gt;                            #创建标签 
-git log                                         #获取提交 ID
-git checkout --&lt;filename&gt;                       #替换本地改动（替换工作目录的文件，添加到缓存和新文件，不受影响）
-git fetch origin                                #指向一个服务器
-git reset --hard origin/master                  #重置你所有的本地改动与提交（通常与git fetch origin使用）
-gitk                                            #图形化 git
-</code></pre></div><div class="tab-pane" id="first-tab-2"><pre><code>git config --global --edit                                      #编辑配置文件
-git config --global user.name &quot;Danny&quot;                           #用户名称信息
-git config --global user.email Danny@example.com                #用户邮箱信息
-git config --global core.editor vim                             #更换文本编辑器
-git config --global core.editor &quot;/path/to/editor/Notepad.exe&quot;   #Windos上需要指定绝对路径
-git config --list                                               #列出Git配置信息
-git config &lt;key&gt;                                                #检查某一项配置（git config user.name）
-git config --unset &lt;key&gt;.&lt;name&gt;                                 #删除某一项配置（git config --unset user.name）
-git config color.ui true                                        #彩色的 git 输出
-</code></pre></div><div class="tab-pane" id="first-tab-3"><pre><code>test
+<h3 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h3><div class="tabs" id="tab-first-tab"><ul class="nav-tabs"><li class="tab active"><a class="#first-tab-1">简单使用</a></li><li class="tab"><a class="#first-tab-2">进阶使用</a></li><li class="tab"><a class="#first-tab-3">高阶使用</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-tab-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git init                                        <span class="comment">#初始化仓库</span></span><br><span class="line">git <span class="built_in">clone</span>                                       <span class="comment">#从本地拉取一个仓库可以使用 git clone /path/to/repository</span></span><br><span class="line">                                                <span class="comment">#从远端拉取一个仓库可以使用 git clone username@host:/path/to/repository</span></span><br><span class="line">git add &lt;filename&gt;                              <span class="comment">#将改动添加至缓存区,也可以使用（git add *）</span></span><br><span class="line">git commit -m &lt;<span class="string">&#x27;information&#x27;</span>&gt;                   <span class="comment">#提交改动</span></span><br><span class="line">git push origin &lt;master&gt;                        <span class="comment">#推送到仓库</span></span><br><span class="line">git remote add origin &lt;server&gt;                  <span class="comment">#添加远程服务器</span></span><br><span class="line">git checkout -b &lt;feature-X&gt;                     <span class="comment">#创建一个分支</span></span><br><span class="line">git checkout &lt;feature&gt;                          <span class="comment">#切换分支</span></span><br><span class="line">git branch -d &lt;feature-X&gt;                       <span class="comment">#删除分支</span></span><br><span class="line">git push origin &lt;branch&gt;                        <span class="comment">#推送分支（未推送到仓库前，他人是无法看见的）</span></span><br><span class="line">git pull                                        <span class="comment">#更新本地仓库至最新（也可以在后面加上你的远程仓库地址）</span></span><br><span class="line">git merage &lt;branch&gt;                             <span class="comment">#合并分支（注意你当前分支的切换）</span></span><br><span class="line">git tag &lt;lable&gt; &lt;ID&gt;                            <span class="comment">#创建标签 </span></span><br><span class="line">git <span class="built_in">log</span>                                         <span class="comment">#获取提交 ID</span></span><br><span class="line">git checkout --&lt;filename&gt;                       <span class="comment">#替换本地改动（替换工作目录的文件，添加到缓存和新文件，不受影响）</span></span><br><span class="line">git fetch origin                                <span class="comment">#指向一个服务器</span></span><br><span class="line">git reset --hard origin/master                  <span class="comment">#重置你所有的本地改动与提交（通常与git fetch origin使用）</span></span><br><span class="line">gitk                                            <span class="comment">#图形化 git</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="first-tab-2"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global --edit                                      <span class="comment">#编辑配置文件</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Danny&quot;</span>                           <span class="comment">#用户名称信息</span></span><br><span class="line">git config --global user.email Danny@example.com                <span class="comment">#用户邮箱信息</span></span><br><span class="line">git config --global core.editor vim                             <span class="comment">#更换文本编辑器</span></span><br><span class="line">git config --global core.editor <span class="string">&quot;/path/to/editor/Notepad.exe&quot;</span>   <span class="comment">#Windos上需要指定绝对路径</span></span><br><span class="line">git config --list                                               <span class="comment">#列出Git配置信息</span></span><br><span class="line">git config &lt;key&gt;                                                <span class="comment">#检查某一项配置（git config user.name）</span></span><br><span class="line">git config --<span class="built_in">unset</span> &lt;key&gt;.&lt;name&gt;                                 <span class="comment">#删除某一项配置（git config --unset user.name）</span></span><br><span class="line">git config color.ui <span class="literal">true</span>                                        <span class="comment">#彩色的 git 输出</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="first-tab-3"><pre><code>test
 </code></pre></div></div></div>
 <hr>
 ]]></content>
