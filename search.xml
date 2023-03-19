@@ -218,4 +218,52 @@ hexo d == hexo deploy                            #部署
         <tag>Hexo</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git操作指南</title>
+    <url>/2023/03/19/Git%E7%AE%80%E6%98%93%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h3 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h3><ul>
+<li>下载 Git OSX 版本 <a class="link"   href="https://git-scm.com/download/mac" >https://git-scm.com/download/mac <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>下载 Git Windows 版本 <a class="link"   href="https://git-scm.com/download/win" >https://git-scm.com/download/win <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>下载 Git Linux 版本  <a class="link"   href="https://git-scm.com/download/linux" >https://git-scm.com/download/linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>由于国内去官网下载Git比较慢，故我们选择阿里的镜像地址去下载 <a class="link"   href="https://npm.taobao.org/mirrors/git-for-windows/" >https://npm.taobao.org/mirrors/git-for-windows/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 根据官网最新的版本，我们在阿里镜像中找到对应的下载就行，速度飞快。安装过程直接按照默认的就行。</li>
+</ul>
+<hr>
+<h3 id="Git使用"><a href="#Git使用" class="headerlink" title="Git使用"></a>Git使用</h3><div class="tabs" id="tab-first-tab"><ul class="nav-tabs"><li class="tab active"><a class="#first-tab-1">简单使用</a></li><li class="tab"><a class="#first-tab-2">进阶使用</a></li><li class="tab"><a class="#first-tab-3">高阶使用</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-tab-1"><pre><code>git init                                        #初始化仓库
+git clone                                       #从本地拉取一个仓库可以使用 git clone /path/to/repository
+                                                #从远端拉取一个仓库可以使用 git clone username@host:/path/to/repository
+git add &lt;filename&gt;                              #将改动添加至缓存区,也可以使用（git add *）
+git commit -m &lt;&#39;information&#39;&gt;                   #提交改动
+git push origin &lt;master&gt;                        #推送到仓库
+git remote add origin &lt;server&gt;                  #添加远程服务器
+git checkout -b &lt;feature-X&gt;                     #创建一个分支
+git checkout &lt;feature&gt;                          #切换分支
+git branch -d &lt;feature-X&gt;                       #删除分支
+git push origin &lt;branch&gt;                        #推送分支（未推送到仓库前，他人是无法看见的）
+git pull                                        #更新本地仓库至最新（也可以在后面加上你的远程仓库地址）
+git merage &lt;branch&gt;                             #合并分支（注意你当前分支的切换）
+git tag &lt;lable&gt; &lt;ID&gt;                            #创建标签 
+git log                                         #获取提交 ID
+git checkout --&lt;filename&gt;                       #替换本地改动（替换工作目录的文件，添加到缓存和新文件，不受影响）
+git fetch origin                                #指向一个服务器
+git reset --hard origin/master                  #重置你所有的本地改动与提交（通常与git fetch origin使用）
+gitk                                            #图形化 git
+</code></pre></div><div class="tab-pane" id="first-tab-2"><pre><code>git config --global --edit                                      #编辑配置文件
+git config --global user.name &quot;Danny&quot;                           #用户名称信息
+git config --global user.email Danny@example.com                #用户邮箱信息
+git config --global core.editor vim                             #更换文本编辑器
+git config --global core.editor &quot;/path/to/editor/Notepad.exe&quot;   #Windos上需要指定绝对路径
+git config --list                                               #列出Git配置信息
+git config &lt;key&gt;                                                #检查某一项配置（git config user.name）
+git config --unset &lt;key&gt;.&lt;name&gt;                                 #删除某一项配置（git config --unset user.name）
+git config color.ui true                                        #彩色的 git 输出
+</code></pre></div><div class="tab-pane" id="first-tab-3"><pre><code>test
+</code></pre></div></div></div>
+<hr>
+]]></content>
+      <categories>
+        <category>Other-operation</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
