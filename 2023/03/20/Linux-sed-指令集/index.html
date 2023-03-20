@@ -16,18 +16,18 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/archives/"/>
+    <link rel="canonical" href="http://example.com/2023/03/20/linux-sed-指令集/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Hexo">
+    <meta property="og:title" content="Linux sed 指令集">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.comarchives/index.html">
+    <meta property="og:url" content="http://example.com2023/03/20/Linux-sed-指令集/">
     
     <meta property="og:site_name" content="Hlyxp-Note">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hexo">
+    <meta name="twitter:title" content="Linux sed 指令集">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -39,7 +39,7 @@
     
     <title>
         
-            归档 -
+            Linux sed 指令集 -
         
         Hlyxp-Note
     </title>
@@ -188,7 +188,7 @@
                         
                             <li class="menu-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/archives"  >
                                     
                                         
@@ -305,7 +305,7 @@
             
                 
                     <li class="drawer-menu-item flex-center">
-                        <a class="active" 
+                        <a class="" 
                         href="/archives"  >
                              
                                 
@@ -350,48 +350,171 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
-<div class="archive-list-container">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Linux sed 指令集</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">人生无常，大肠包小肠！</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-03-20 21:04:50</span>
+        <span class="mobile">2023-03-20 21:04</span>
+        <span class="hover-info">创建</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[4]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='03-20'>
-                <a href="/2023/03/20/Linux-sed-%E6%8C%87%E4%BB%A4%E9%9B%86/">
-                  <span class="article-title">Linux sed 指令集</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-19'>
-                <a href="/2023/03/19/Git%E7%AE%80%E6%98%93%E6%8C%87%E5%8D%97/">
-                  <span class="article-title">Git操作指南</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-12'>
-                <a href="/2023/03/12/vmess-ws-tls-web%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">
-                  <span class="article-title">Vmess + TLS + WS 实现科学上网</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-11'>
-                <a href="/2023/03/11/%E5%A6%82%E4%BD%95%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BABlog/">
-                  <span class="article-title">如何用Hexo搭建个人Blog</span>
-                </a>
-              </li>
-              
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-03-20 22:04:10</span>
+            <span class="mobile">2023-03-20 22:04</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/sed/">sed</a>&nbsp;
+                    </li>
+                
             </ul>
-        </section>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>588 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
 
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <div class="note-large notel-primary"><div class="notel-title"><p>Introduce</p>
+</div><div class="notel-content"><p>sed命令是一种非常强大和灵活的文本处理工具，它可以让您快速地对文本进行各种编辑操作，而无需打开一个交互式的文本编辑器。sed命令可以在管道中使用，也可以直接修改原文件，非常适合批量处理大量的文本数据。sed命令还支持正则表达式，可以让您更精确地匹配和替换文本。如果您想要提高您的Linux技能和效率，那么学习sed命令是一个不错的选择。</p>
+ </div></div>
+<hr>
+<h3 id="Sed常用指令"><a href="#Sed常用指令" class="headerlink" title="Sed常用指令"></a>Sed常用指令</h3><div class="tabs" id="tab-sed-tab"><ul class="nav-tabs"><li class="tab active"><a class="#sed-tab-1">参数说明</a></li><li class="tab"><a class="#sed-tab-2">使用实例</a></li></ul><div class="tab-content"><div class="tab-pane active" id="sed-tab-1"><ul>
+<li>-a    新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～</li>
+<li>-c    取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！</li>
+<li>-d    删除，因为是删除啊，所以 d 后面通常不接任何东东；</li>
+<li>-i    插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li>
+<li>-p    打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～</li>
+<li>-s    替换，可以直接进行替换！通常这个 s 的动作可以搭配正则表达式</li>
+</ul></div><div class="tab-pane" id="sed-tab-2"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sed 5a\newline filename             <span class="comment"># 在filename文件第5行的下一行插入newline,将结果输出到标准输出</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed <span class="string">&#x27;3,7d&#x27;</span>            <span class="comment"># &lt;nl&gt;带行号输出&lt;filename&gt;sed动作是删除&lt;d&gt; 3-7行,也可以夹带正则</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed <span class="string">&#x27;8a after hello word&#x27;</span>         <span class="comment"># 在第八行的结尾加上 after hello word 字样</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed <span class="string">&#x27;8i first hello word&#x27;</span>         <span class="comment"># 在第八行前加上 first hello word 字样</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed -n <span class="string">&#x27;3,8p&#x27;</span>                         <span class="comment"># 列出filename文件内的&lt;3-8&gt;行信息</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed -n <span class="string">&#x27;/hello/p&#x27;</span>                     <span class="comment"># 列出filename文件有hello关键词的行</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed -n <span class="string">&#x27;/hello/d&#x27;</span>                     <span class="comment"># 删除filename文件有hello关键词的行</span></span><br><span class="line"><span class="built_in">nl</span> filename | sed -n <span class="string">&#x27;/hello/&#123;s/hello/hi/;p;q&#125;/&#x27;</span>      <span class="comment">#找到hello关键词替换为hi &lt;q&gt;退出</span></span><br><span class="line">sed <span class="string">&#x27;s/Oldstring/Newstring/g&#x27;</span>  filename    <span class="comment"># 替换filename文件中的&lt;Oldstring&gt;为&lt;Newstring&gt; &lt;g&gt;全局替换</span></span><br><span class="line">sed -i <span class="string">&#x27;s/Oldstring/Newstring/g&#x27;</span>  filename          <span class="comment"># 使其修改生效</span></span><br><span class="line">sed -i <span class="string">&#x27;s/Oldstring/Newstring/g&#x27;</span>  path/to/file.*    <span class="comment">#批量替换目录下file开头的文件</span></span><br></pre></td></tr></table></figure></div></div></div></div>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Linux sed 指令集</li>
+        <li>本文作者：人生无常，大肠包小肠！</li>
+        <li>创建时间：2023-03-20 21:04:50</li>
+        <li>
+            本文链接：https://lipaysamart.github.io/2023/03/20/Linux-sed-指令集/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/sed/">#sed</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/03/19/Git%E7%AE%80%E6%98%93%E6%8C%87%E5%8D%97/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Git操作指南</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Linux sed 指令集</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sed%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-text">Sed常用指令</span></a></li></ol>
+
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -467,6 +590,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -584,6 +724,8 @@
 
 
 <div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/plugins/tabs.js"></script>
     
 </div>
 
