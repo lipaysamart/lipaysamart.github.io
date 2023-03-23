@@ -221,4 +221,63 @@
         <tag>Gore</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境</title>
+    <url>/2023/03/23/Linux-Zsh-%E4%BD%BF%E7%94%A8-oh-my-zsh-%E6%89%93%E9%80%A0%E9%AB%98%E6%95%88%E4%BE%BF%E6%8D%B7%E7%9A%84-shell-%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h3 id="安装Zsh"><a href="#安装Zsh" class="headerlink" title="安装Zsh"></a>安装Zsh</h3><p>Zsh 完全兼容 bash，支持强大的智能命令补全功能，支持大量的界面主题和插件，功能和效率都极大的增强和提高。</p>
+<ul>
+<li>CentOS: <code>yum -y install zsh</code></li>
+<li>Ubunto: <code>apt install zsh</code></li>
+</ul>
+<h5 id="设置-默认-Shell-为-zsh"><a href="#设置-默认-Shell-为-zsh" class="headerlink" title="设置 默认 Shell 为 zsh"></a>设置 默认 Shell 为 zsh</h5><p><code>echo $shell</code>                   # 查看当前Shell<br><code>chsh -s /bin/zsh</code>              # 给 root 用户设置默认Shell<br><code>chsh -s /bin/zsh &lt;username&gt; </code>  # 给特定用户设置默认Shell<br>显示 <strong>“Changing shell for root”</strong> 则表示切换成功</p>
+<h3 id="安装-oh-my-zsh-amp-插件"><a href="#安装-oh-my-zsh-amp-插件" class="headerlink" title="安装 oh-my-zsh &amp; 插件"></a>安装 oh-my-zsh &amp; 插件</h3><p>这里我们采用自动安装，使用如下一键sh脚本<br><code>sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</code></p>
+<h5 id="修改主题样式"><a href="#修改主题样式" class="headerlink" title="修改主题样式"></a>修改主题样式</h5><p><code>vim .zshrc</code>                     #这里是当前路径<br>ZSH_THEM字段就是主题（Passion）<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323212915.png"
+                      alt="link"
+                ><br><em>基础样式可以查看这里: <a class="link"   href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes" >https://github.com/ohmyzsh/ohmyzsh/wiki/Themes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br><em>额外主题可以查看这里: <a class="link"   href="https://github.com/ohmyzsh/ohmyzsh/wiki/External-themes" >https://github.com/ohmyzsh/ohmyzsh/wiki/External-themes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br>你还可以快速修改 <code>sed -i &#39;/^ZSH_THEME=.*/c ZSH_THEME=&quot;themes&quot;&#39; ~/.zshrc &amp;&amp; source .zshrc</code></p>
+<h5 id="命令自动补全-zsh-completions"><a href="#命令自动补全-zsh-completions" class="headerlink" title="命令自动补全 zsh-completions"></a>命令自动补全 zsh-completions</h5><ul>
+<li><p><strong>自动列出目录</strong><br>输入 <code>cd</code> 按 <strong>tab</strong> 键，目录将自动列出，在按 <strong>tab</strong> 可以切换</p>
+</li>
+<li><p><strong>自动目录名简写补全</strong><br>要访问 <code>/usr/local/bi</code>n 这个长路径，只需要 <code>cd /u/l/b</code> 按 <strong>tab</strong> 键自动补全</p>
+</li>
+<li><p><strong>自动大小写更正</strong><br>要访问 home 目录，只需要 <code>cd ho</code> 按 <strong>tab</strong> 键自动补全，或者查看 README.md，只需要 <code>cat rea</code> 自动更正补全</p>
+</li>
+<li><p><strong>自动命令补全</strong><br>输入 <code>kubectl</code> 按 <strong>tab</strong> 键即可看到可用命令</p>
+</li>
+<li><p><strong>自动补全命令参数</strong><br>输入 <code>kill</code> 按 <strong>tab</strong> 键会自动显示出进程的 <strong>process id</strong></p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-completions <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-completions</span><br><span class="line">fpath+=<span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-completions/src </span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323223023.png"
+                      alt="link"
+                >  </p>
+<h5 id="依据历史命令补全-zsh-autosuggestions"><a href="#依据历史命令补全-zsh-autosuggestions" class="headerlink" title="依据历史命令补全 zsh-autosuggestions"></a>依据历史命令补全 zsh-autosuggestions</h5><p>根据历史输入命令的记录即时的提示（建议补全），然后按 → 键即可补全</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-autosuggestions</span><br><span class="line">vim .zshrc              <span class="comment"># 添加插件名字 zsh-autosuggestions</span></span><br><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323222329.png"
+                      alt="link"
+                ></p>
+<h5 id="语法高亮插件-zsh-syntax-highlighting"><a href="#语法高亮插件-zsh-syntax-highlighting" class="headerlink" title="语法高亮插件 zsh-syntax-highlighting"></a>语法高亮插件 zsh-syntax-highlighting</h5><p>命令错误会显示红色，直到你输入正确才会变绿色，另外路径正确会显示下划线</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br><span class="line">vim .zshrc              <span class="comment">#添加插件名字 zsh-syntax-highlighting</span></span><br><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323222218.png"
+                      alt="link"
+                ></p>
+]]></content>
+      <categories>
+        <category>Linux-System-Operator</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>

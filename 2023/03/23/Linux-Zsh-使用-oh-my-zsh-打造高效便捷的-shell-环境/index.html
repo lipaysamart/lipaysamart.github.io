@@ -16,18 +16,18 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/404.html"/>
+    <link rel="canonical" href="http://example.com/2023/03/23/linux-zsh-使用-oh-my-zsh-打造高效便捷的-shell-环境/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Page Not Found">
+    <meta property="og:title" content="Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="http://example.com404.html">
+    <meta property="og:url" content="http://example.com2023/03/23/Linux-Zsh-使用-oh-my-zsh-打造高效便捷的-shell-环境/">
     
     <meta property="og:site_name" content="Hlyxp-Note">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Page Not Found">
+    <meta name="twitter:title" content="Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/redefine-logo.svg">
     <!--- Icon Part-->
@@ -39,7 +39,7 @@
     
     <title>
         
-            Page Not Found -
+            Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境 -
         
         Hlyxp-Note
     </title>
@@ -349,14 +349,220 @@
             <div class="main-content">
 
                 
-                    <div class="nf-container">
-    <div class="nf-text">
-        <h1>404 Page Not Found</h1>
-    </div>
-    <div class="nf-button">
-        <a href="/" class="button large center"><i class="fa-regular fa-house"></i> Go Back</a>
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">人生无常，大肠包小肠！</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-03-23 21:13:45</span>
+        <span class="mobile">2023-03-23 21:13</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-03-23 22:30:46</span>
+            <span class="mobile">2023-03-23 22:30</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux-System-Operator/">Linux-System-Operator</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-file-word"></i>&nbsp;<span>576 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h3 id="安装Zsh"><a href="#安装Zsh" class="headerlink" title="安装Zsh"></a>安装Zsh</h3><p>Zsh 完全兼容 bash，支持强大的智能命令补全功能，支持大量的界面主题和插件，功能和效率都极大的增强和提高。</p>
+<ul>
+<li>CentOS: <code>yum -y install zsh</code></li>
+<li>Ubunto: <code>apt install zsh</code></li>
+</ul>
+<h5 id="设置-默认-Shell-为-zsh"><a href="#设置-默认-Shell-为-zsh" class="headerlink" title="设置 默认 Shell 为 zsh"></a>设置 默认 Shell 为 zsh</h5><p><code>echo $shell</code>                   # 查看当前Shell<br><code>chsh -s /bin/zsh</code>              # 给 root 用户设置默认Shell<br><code>chsh -s /bin/zsh &lt;username&gt; </code>  # 给特定用户设置默认Shell<br>显示 <strong>“Changing shell for root”</strong> 则表示切换成功</p>
+<h3 id="安装-oh-my-zsh-amp-插件"><a href="#安装-oh-my-zsh-amp-插件" class="headerlink" title="安装 oh-my-zsh &amp; 插件"></a>安装 oh-my-zsh &amp; 插件</h3><p>这里我们采用自动安装，使用如下一键sh脚本<br><code>sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</code></p>
+<h5 id="修改主题样式"><a href="#修改主题样式" class="headerlink" title="修改主题样式"></a>修改主题样式</h5><p><code>vim .zshrc</code>                     #这里是当前路径<br>ZSH_THEM字段就是主题（Passion）<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323212915.png"
+                      alt="link"
+                ><br><em>基础样式可以查看这里: <a class="link"   target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes" >https://github.com/ohmyzsh/ohmyzsh/wiki/Themes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br><em>额外主题可以查看这里: <a class="link"   target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/External-themes" >https://github.com/ohmyzsh/ohmyzsh/wiki/External-themes <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br>你还可以快速修改 <code>sed -i &#39;/^ZSH_THEME=.*/c ZSH_THEME=&quot;themes&quot;&#39; ~/.zshrc &amp;&amp; source .zshrc</code></p>
+<h5 id="命令自动补全-zsh-completions"><a href="#命令自动补全-zsh-completions" class="headerlink" title="命令自动补全 zsh-completions"></a>命令自动补全 zsh-completions</h5><ul>
+<li><p><strong>自动列出目录</strong><br>输入 <code>cd</code> 按 <strong>tab</strong> 键，目录将自动列出，在按 <strong>tab</strong> 可以切换</p>
+</li>
+<li><p><strong>自动目录名简写补全</strong><br>要访问 <code>/usr/local/bi</code>n 这个长路径，只需要 <code>cd /u/l/b</code> 按 <strong>tab</strong> 键自动补全</p>
+</li>
+<li><p><strong>自动大小写更正</strong><br>要访问 home 目录，只需要 <code>cd ho</code> 按 <strong>tab</strong> 键自动补全，或者查看 README.md，只需要 <code>cat rea</code> 自动更正补全</p>
+</li>
+<li><p><strong>自动命令补全</strong><br>输入 <code>kubectl</code> 按 <strong>tab</strong> 键即可看到可用命令</p>
+</li>
+<li><p><strong>自动补全命令参数</strong><br>输入 <code>kill</code> 按 <strong>tab</strong> 键会自动显示出进程的 <strong>process id</strong></p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-completions <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-completions</span><br><span class="line">fpath+=<span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-completions/src </span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323223023.png"
+                      alt="link"
+                >  </p>
+<h5 id="依据历史命令补全-zsh-autosuggestions"><a href="#依据历史命令补全-zsh-autosuggestions" class="headerlink" title="依据历史命令补全 zsh-autosuggestions"></a>依据历史命令补全 zsh-autosuggestions</h5><p>根据历史输入命令的记录即时的提示（建议补全），然后按 → 键即可补全</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$&#123;ZSH:-~/.oh-my-zsh&#125;</span>/custom&#125;</span>/plugins/zsh-autosuggestions</span><br><span class="line">vim .zshrc              <span class="comment"># 添加插件名字 zsh-autosuggestions</span></span><br><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323222329.png"
+                      alt="link"
+                ></p>
+<h5 id="语法高亮插件-zsh-syntax-highlighting"><a href="#语法高亮插件-zsh-syntax-highlighting" class="headerlink" title="语法高亮插件 zsh-syntax-highlighting"></a>语法高亮插件 zsh-syntax-highlighting</h5><p>命令错误会显示红色，直到你输入正确才会变绿色，另外路径正确会显示下划线</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br><span class="line">vim .zshrc              <span class="comment">#添加插件名字 zsh-syntax-highlighting</span></span><br><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure></div>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230323222218.png"
+                      alt="link"
+                ></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境</li>
+        <li>本文作者：人生无常，大肠包小肠！</li>
+        <li>创建时间：2023-03-23 21:13:45</li>
+        <li>
+            本文链接：https://lipaysamart.github.io/2023/03/23/Linux-Zsh-使用-oh-my-zsh-打造高效便捷的-shell-环境/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Linux/">#Linux</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/03/22/Gcore-%E5%8A%A0%E9%80%9F%E4%BD%A0%E7%9A%84%E7%AB%99%E7%82%B9/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Gcore CDN 加速你的站点</span>
+                                    <span class="post-nav-item">下一篇</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Zsh"><span class="nav-text">安装Zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-%E9%BB%98%E8%AE%A4-Shell-%E4%B8%BA-zsh"><span class="nav-text">设置 默认 Shell 为 zsh</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-oh-my-zsh-amp-%E6%8F%92%E4%BB%B6"><span class="nav-text">安装 oh-my-zsh &amp; 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E6%A0%B7%E5%BC%8F"><span class="nav-text">修改主题样式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8-zsh-completions"><span class="nav-text">命令自动补全 zsh-completions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%9D%E6%8D%AE%E5%8E%86%E5%8F%B2%E5%91%BD%E4%BB%A4%E8%A1%A5%E5%85%A8-zsh-autosuggestions"><span class="nav-text">依据历史命令补全 zsh-autosuggestions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE%E6%8F%92%E4%BB%B6-zsh-syntax-highlighting"><span class="nav-text">语法高亮插件 zsh-syntax-highlighting</span></a></li></ol></li></ol></li></ol>
+
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -432,6 +638,23 @@
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -549,6 +772,8 @@
 
 
 <div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.3/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.3/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.3/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.3/source/js/plugins/tabs.js"></script>
     
 </div>
 
