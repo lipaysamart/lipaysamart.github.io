@@ -44,6 +44,8 @@ Global.initUtils = () => {
     
       if (Global.theme_config.navbar.auto_hide) {
         this.pageTop_dom.classList.toggle('hide', (this.prevScrollValue > clientHeight && scrollTop  > this.prevScrollValue) );
+      } else {
+        this.pageTop_dom.classList.remove('hide');
       }
       this.prevScrollValue = scrollTop;
     },
@@ -52,9 +54,7 @@ Global.initUtils = () => {
     registerWindowScroll() {
       window.addEventListener("scroll", () => {
         // style handle when scroll
-        if (this.isHasScrollPercent || this.isHasScrollProgressBar) {
-          this.updateScrollStyle();
-        }
+        this.updateScrollStyle();
 
         // TOC scroll handle
         if (
