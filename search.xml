@@ -112,18 +112,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Helm 模板开发</title>
-    <url>/2023/03/26/Helm-%E6%A8%A1%E6%9D%BF%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3>]]></content>
-      <categories>
-        <category>Kubernetes-Operator</category>
-      </categories>
-      <tags>
-        <tag>Helm</tag>
-        <tag>Kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Helm Charts 中文指南</title>
     <url>/2023/03/24/Helm-Charts-%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<h3 id="Helm包管理"><a href="#Helm包管理" class="headerlink" title="Helm包管理"></a>Helm包管理</h3><div class="tabs" id="tab-helm"><ul class="nav-tabs"><li class="tab active"><a class="#helm-1">helm指令参数</a></li><li class="tab"><a class="#helm-2">helm简单示例</a></li><li class="tab"><a class="#helm-3">helm常用用法</a></li></ul><div class="tab-content"><div class="tab-pane active" id="helm-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">helm completion                         <span class="comment"># 生成指定shell的自动补全脚本</span></span><br><span class="line">helm create                             <span class="comment"># 用给定的名称创建一个新的图表</span></span><br><span class="line">helm dependency                         <span class="comment"># 管理图表的依赖关系</span></span><br><span class="line">helm <span class="built_in">env</span>                                <span class="comment"># helm客户端环境信息</span></span><br><span class="line">helm get                                <span class="comment"># 下载命名发布的扩展信息</span></span><br><span class="line">helm <span class="built_in">history</span>                            <span class="comment"># 获取发布历史</span></span><br><span class="line">helm install                            <span class="comment"># 安装一个图表</span></span><br><span class="line">helm lint                               <span class="comment"># 检查一个图表是否有可能的问题</span></span><br><span class="line">helm list                               <span class="comment"># 列出发布</span></span><br><span class="line">helm package                            <span class="comment"># 将一个图表目录打包成一个图表存档</span></span><br><span class="line">helm plugin                             <span class="comment"># 安装、列出或卸载Helm插件</span></span><br><span class="line">helm pull                               <span class="comment"># 从仓库下载一个图表并（可选地）在本地目录解压它</span></span><br><span class="line">helm push                               <span class="comment"># 将一个图表推送到远程</span></span><br><span class="line">helm registry                           <span class="comment"># 登录或登出一个注册表</span></span><br><span class="line">helm repo                               <span class="comment"># 添加、列出、移除、更新和索引图表仓库</span></span><br><span class="line">helm rollback                           <span class="comment"># 将一个发布回滚到之前的修订版</span></span><br><span class="line">helm search                             <span class="comment"># 在图表中搜索一个关键词</span></span><br><span class="line">helm show                               <span class="comment"># 显示一个图表的信息</span></span><br><span class="line">helm status                             <span class="comment"># 显示命名发布的状态</span></span><br><span class="line">helm template                           <span class="comment"># 在本地渲染模板</span></span><br><span class="line">helm <span class="built_in">test</span>                               <span class="comment"># 运行一个发布的测试</span></span><br><span class="line">helm uninstall                          <span class="comment"># 卸载一个发布</span></span><br><span class="line">helm upgrade                            <span class="comment"># 升级一个发布</span></span><br><span class="line">helm verify                             <span class="comment"># 验证给定路径的图表是否已经签名并且有效</span></span><br><span class="line">helm version                            <span class="comment"># 打印客户端版本信息</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="helm-2"><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">helm</span> <span class="string">upgrade</span> <span class="string">&lt;RELEASE&gt;</span> <span class="string">&lt;CHART&gt;</span> <span class="string">&lt;flags&gt;</span>  <span class="comment"># 更新release配置</span></span><br><span class="line"><span class="string">helm</span> <span class="string">rollback</span> <span class="string">&lt;RELEASE&gt;</span> <span class="string">&lt;REVISION&gt;</span>      <span class="comment"># 回滚升级前的版本 </span></span><br><span class="line"><span class="string">helm</span> <span class="string">get</span> <span class="string">&lt;COMMEND&gt;</span> <span class="string">&lt;RELEASE_NAME&gt;</span>       <span class="comment"># 获取release的配置</span></span><br><span class="line"><span class="string">helm</span> <span class="string">history</span> [<span class="string">RELEASE</span>]                  <span class="comment"># 查看历史版本号</span></span><br><span class="line"><span class="string">helm</span> <span class="string">template</span> [<span class="string">NAME</span>] [<span class="string">CHART</span>] [<span class="string">flags</span>]    <span class="comment"># 用于在本地渲染图表模板并显示输出</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="helm-3"></div></div></div>
@@ -148,6 +136,18 @@
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">imageRegistry:</span> <span class="string">&quot;quay.io/deis&quot;</span></span><br><span class="line"><span class="attr">dockerTag:</span> <span class="string">&quot;latest&quot;</span></span><br><span class="line"><span class="attr">pullPolicy:</span> <span class="string">&quot;Always&quot;</span></span><br><span class="line"><span class="attr">storage:</span> <span class="string">&quot;gcs&quot;</span></span><br></pre></td></tr></table></figure></div>
 <p>我们可以看到只有最后一个字段被覆盖了。</p>
 ]]></content>
+      <categories>
+        <category>Kubernetes-Operator</category>
+      </categories>
+      <tags>
+        <tag>Helm</tag>
+        <tag>Kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Helm 模板开发</title>
+    <url>/2023/03/26/Helm-%E6%A8%A1%E6%9D%BF%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3>]]></content>
       <categories>
         <category>Kubernetes-Operator</category>
       </categories>
@@ -237,14 +237,181 @@
       </tags>
   </entry>
   <entry>
-    <title>Python的URLlib模块</title>
-    <url>/2023/04/14/Python%E7%9A%84URLlib%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[]]></content>
+    <title>Nginx 入门到实践</title>
+    <url>/2023/04/16/Nginx-%E5%85%A8%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h3 id="Nginx-介绍"><a href="#Nginx-介绍" class="headerlink" title="Nginx 介绍"></a>Nginx 介绍</h3><p>传统的 Web 服务器，每个客户端连接作为一个单独的进程或线程处理，需在切换任务时将 CPU 切换到新的任务并创建一个新的运行时上下文，消耗额外的内存和 CPU 时间，当并发请求增加时，服务器响应变慢，从而对性能产生负面影响。</p>
+<p>Nginx 是开源、高性能、高可靠的 Web 和反向代理服务器，而且支持热部署，几乎可以做到 7 * 24 小时不间断运行，即使运行几个月也不需要重新启动，还能在不间断服务的情况下对软件版本进行热更新。性能是 Nginx 最重要的考量，其占用内存少、并发能力强、能支持高达 5w 个并发连接数，最重要的是，Nginx 是免费的并可以商业化，配置使用也比较简单。</p>
+<p>Nginx 的最重要的几个使用场景：</p>
+<ul>
+<li>静态资源服务，通过本地文件系统提供服务；</li>
+<li>反向代理服务，延伸出包括缓存、负载均衡等；</li>
+<li>API 服务，OpenResty；</li>
+</ul>
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><div class="tabs" id="tab-first"><ul class="nav-tabs"><li class="tab active"><a class="#first-1">常用命令</a></li><li class="tab"><a class="#first-2">配置结构图</a></li><li class="tab"><a class="#first-3">典型配置</a></li></ul><div class="tab-content"><div class="tab-pane active" id="first-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">nginx -s reload  <span class="comment"># 向主进程发送信号，重新加载配置文件，热重启</span></span><br><span class="line">nginx -s reopen	 <span class="comment"># 重启 Nginx</span></span><br><span class="line">nginx -s stop    <span class="comment"># 快速关闭</span></span><br><span class="line">nginx -s quit    <span class="comment"># 等待工作进程处理完成后关闭</span></span><br><span class="line">nginx -T         <span class="comment"># 查看当前 Nginx 最终的配置</span></span><br><span class="line">nginx -t -c &lt;配置路径&gt;    <span class="comment"># 检查配置是否有问题，如果已经在配置目录，则不需要-c</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="first-2"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">main        <span class="comment"># 全局配置，对全局生效</span></span><br><span class="line">├── events  <span class="comment"># 配置影响 Nginx 服务器或与用户的网络连接</span></span><br><span class="line">├── http    <span class="comment"># 配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置</span></span><br><span class="line">│   ├── upstream <span class="comment"># 配置后端服务器具体地址，负载均衡配置不可或缺的部分</span></span><br><span class="line">│   ├── server   <span class="comment"># 配置虚拟主机的相关参数，一个 http 块中可以有多个 server 块</span></span><br><span class="line">│   ├── server</span><br><span class="line">│   │   ├── location  <span class="comment"># server 块可以包含多个 location 块，location 指令用于匹配 uri</span></span><br><span class="line">│   │   ├── location</span><br><span class="line">│   │   └── ...</span><br><span class="line">│   └── ...</span><br><span class="line">└── ...</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="first-3"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">user  nginx;                        <span class="comment"># 运行用户，默认即是nginx，可以不进行设置</span></span><br><span class="line">worker_processes  1;                <span class="comment"># Nginx 进程数，一般设置为和 CPU 核数一样</span></span><br><span class="line">error_log  /var/log/nginx/error.log warn;   <span class="comment"># Nginx 的错误日志存放目录</span></span><br><span class="line">pid        /var/run/nginx.pid;      <span class="comment"># Nginx 服务启动时的 pid 存放位置</span></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    use epoll;     <span class="comment"># 使用epoll的I/O模型(如果你不知道Nginx该使用哪种轮询方法，会自动选择一个最适合你操作系统的)</span></span><br><span class="line">    worker_connections 1024;   <span class="comment"># 每个进程允许最大并发数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;   <span class="comment"># 配置使用最频繁的部分，代理、缓存、日志定义等绝大多数功能和第三方模块的配置都在这里设置</span></span><br><span class="line">    <span class="comment"># 设置日志模式</span></span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;   <span class="comment"># Nginx访问日志存放位置</span></span><br><span class="line"></span><br><span class="line">    sendfile            on;   <span class="comment"># 开启高效传输模式</span></span><br><span class="line">    tcp_nopush          on;   <span class="comment"># 减少网络报文段的数量</span></span><br><span class="line">    tcp_nodelay         on;</span><br><span class="line">    keepalive_timeout   65;   <span class="comment"># 保持连接的时间，也叫超时时间，单位秒</span></span><br><span class="line">    types_hash_max_size 2048;</span><br><span class="line"></span><br><span class="line">    include             /etc/nginx/mime.types;      <span class="comment"># 文件扩展名与类型映射表</span></span><br><span class="line">    default_type        application/octet-stream;   <span class="comment"># 默认文件类型</span></span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;   <span class="comment"># 加载子配置项</span></span><br><span class="line">    </span><br><span class="line">    server &#123;</span><br><span class="line">    	listen       80;       <span class="comment"># 配置监听的端口</span></span><br><span class="line">    	server_name  localhost;    <span class="comment"># 配置的域名</span></span><br><span class="line">    	</span><br><span class="line">    	location / &#123;</span><br><span class="line">    		root   /usr/share/nginx/html;  <span class="comment"># 网站根目录</span></span><br><span class="line">    		index  index.html index.htm;   <span class="comment"># 默认首页文件</span></span><br><span class="line">    		deny 172.168.22.11;   <span class="comment"># 禁止访问的ip地址，可以为all</span></span><br><span class="line">    		allow 172.168.33.44； <span class="comment"># 允许访问的ip地址，可以为all</span></span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	error_page 500 502 503 504 /50x.html;  <span class="comment"># 默认50x对应的访问页面</span></span><br><span class="line">    	error_page 400 404 error.html;   <span class="comment"># 同上</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div></div></div>
+
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># server 块可以包含多个 location 块，location 指令用于匹配 uri：</span></span><br><span class="line">location [ = | ~ | ~* | ^~] uri &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><code>=</code>  精确匹配路径，用于不含正则表达式的 uri 前，如果匹配成功，不再进行后续的查找；<br><code>^~</code> 用于不含正则表达式的 uri 前，表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找；<br><code>~</code>  表示用该符号后面的正则去匹配路径，区分大小写；<br><code>~*</code> 表示用该符号后面的正则去匹配路径，不区分大小写。跟 ~ 优先级都比较低，如有多个location的正则能匹配的话，则使用正则表达式最长的那个；<br>如果 uri 包含正则表达式，则必须要有 <code>~</code> 或 <code>~*</code> 标志。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Describe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">host</td>
+<td align="left">请求信息中的 Host，如果请求中没有 Host 行，则等于设置的服务器名，不包含端口</td>
+</tr>
+<tr>
+<td align="left">request_method</td>
+<td align="left">客户端请求类型，如 GET、POST</td>
+</tr>
+<tr>
+<td align="left">remote_addr</td>
+<td align="left">客户端的 IP 地址</td>
+</tr>
+<tr>
+<td align="left">args</td>
+<td align="left">请求中的参数</td>
+</tr>
+<tr>
+<td align="left">arg_PARAMETER</td>
+<td align="left">GET 请求中变量名 PARAMETER 参数的值，例如：$http_user_agent(Uaer-Agent 值), $http_referer…</td>
+</tr>
+<tr>
+<td align="left">content_length</td>
+<td align="left">请求头中的 Content-length 字段</td>
+</tr>
+<tr>
+<td align="left">http_user_agent</td>
+<td align="left">客户端agent信息</td>
+</tr>
+<tr>
+<td align="left">http_cookie</td>
+<td align="left">客户端cookie信息</td>
+</tr>
+<tr>
+<td align="left">remote_addr</td>
+<td align="left">客户端的IP地址</td>
+</tr>
+<tr>
+<td align="left">remote_port</td>
+<td align="left">客户端的端口</td>
+</tr>
+<tr>
+<td align="left">http_user_agent</td>
+<td align="left">客户端agent信息</td>
+</tr>
+<tr>
+<td align="left">server_protocol</td>
+<td align="left">请求使用的协议，如 HTTP&#x2F;1.0、HTTP&#x2F;1.1</td>
+</tr>
+<tr>
+<td align="left">server_addr</td>
+<td align="left">服务器地址</td>
+</tr>
+<tr>
+<td align="left">server_name</td>
+<td align="left">服务器名称</td>
+</tr>
+<tr>
+<td align="left">server_port</td>
+<td align="left">服务器的端口号</td>
+</tr>
+<tr>
+<td align="left">scheme	HTTP</td>
+<td align="left">方法（如http，https）</td>
+</tr>
+</tbody></table>
+<h3 id="配置一个反向代理"><a href="#配置一个反向代理" class="headerlink" title="配置一个反向代理"></a>配置一个反向代理</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /etc/nginx/conf.d/proxy.conf</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name proxy.theplan.space;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">      proxy_pass http://cn.bing.com</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p><code>proxy_set_header</code>                在将客户端请求发送给后端服务器之前，更改来自客户端的请求头信息；<br><code>proxy_connect_timeout:</code>          配置 Nginx 与后端代理服务器尝试建立连接的超时时间；<br><code>proxy_read_timeout:</code>             配置 Nginx 向后端服务器组发出 read 请求后，等待相应的超时时间；<br><code>proxy_send_timeout:</code>             配置 Nginx 向后端服务器组发出 write 请求后，等待相应的超时时间；<br><code>proxy_redirect:</code>                 用于修改后端服务器返回的响应头中的 Location 和 Refresh。</p>
+<h3 id="配置-gzip"><a href="#配置-gzip" class="headerlink" title="配置 gzip"></a>配置 gzip</h3><div class="tabs" id="tab-three"><ul class="nav-tabs"><li class="tab active"><a class="#three-1">gzip配置</a></li><li class="tab"><a class="#three-2">gzip 说明</a></li></ul><div class="tab-content"><div class="tab-pane active" id="three-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /etc/nginx/conf.d/gzip.conf</span></span><br><span class="line"></span><br><span class="line">gzip on; <span class="comment"># 默认off，是否开启gzip</span></span><br><span class="line">gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上面两个开启基本就能跑起了，下面的愿意折腾就了解一下</span></span><br><span class="line">gzip_static on;</span><br><span class="line">gzip_proxied any;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_buffers 16 8k;</span><br><span class="line"><span class="comment"># gzip_min_length 1k;</span></span><br><span class="line">gzip_http_version 1.1;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="three-2"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">gzip_types</span><br><span class="line"><span class="comment"># 要采用 gzip 压缩的 MIME 文件类型，其中 text/html 被系统强制启用；</span></span><br><span class="line"></span><br><span class="line">gzip_static</span><br><span class="line"><span class="comment"># 默认 off，该模块启用后，Nginx 首先检查是否存在请求静态文件的 gz 结尾的文件，如果有则直接返回该 .gz 文件内容；</span></span><br><span class="line"></span><br><span class="line">gzip_proxied</span><br><span class="line"><span class="comment"># 默认 off，nginx做为反向代理时启用，用于设置启用或禁用从代理服务器上收到相应内容 gzip 压缩；</span></span><br><span class="line"></span><br><span class="line">gzip_vary</span><br><span class="line"><span class="comment"># 用于在响应消息头中添加 `Vary：Accept-Encoding`，使代理服务器根据请求头中的 `Accept-Encoding` 识别是否启用 gzip 压缩；</span></span><br><span class="line"></span><br><span class="line">gzip_comp_level：</span><br><span class="line"><span class="comment"># gzip 压缩比，压缩级别是 1-9，1 压缩级别最低，9 最高，级别越高压缩率越大，压缩时间越长，建议 4-6；</span></span><br><span class="line"></span><br><span class="line">gzip_buffers</span><br><span class="line"><span class="comment"># 获取多少内存用于缓存压缩结果，16 8k 表示以 8k*16 为单位获得；</span></span><br><span class="line"></span><br><span class="line">gzip_min_length</span><br><span class="line"><span class="comment"># 允许压缩的页面最小字节数，页面字节数从header头中的 Content-Length 中进行获取。默认值是 0，不管页面多大都压缩。建议设置成大于 1k 的字节数，小于 1k 可能会越压越大；</span></span><br><span class="line"></span><br><span class="line">gzip_http_version</span><br><span class="line"><span class="comment"># 默认 1.1，启用 gzip 所需的 HTTP 最低版本；</span></span><br></pre></td></tr></table></figure></div></div></div></div>
+
+<h3 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  upstream myserver &#123;</span><br><span class="line">  	<span class="comment"># ip_hash;  # ip_hash 方式</span></span><br><span class="line">    <span class="comment"># fair;   # fair 方式</span></span><br><span class="line">    server 127.0.0.1:8081;  <span class="comment"># 负载均衡目的服务地址</span></span><br><span class="line">    server 127.0.0.1:8080;</span><br><span class="line">    server 127.0.0.1:8082 weight=10;  <span class="comment"># weight 方式，不写默认为 1</span></span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  server &#123;</span><br><span class="line">    location / &#123;</span><br><span class="line">    	proxy_pass http://myserver;</span><br><span class="line">      proxy_connect_timeout 10;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p><strong>Nginx 提供了好几种分配方式，默认为轮询，就是轮流来。有以下几种分配方式</strong>:<br><strong>轮询</strong>:     默认方式，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务挂了，能自动剔除；<br><strong>weight</strong>:   权重分配，指定轮询几率，权重越高，在被访问的概率越大，用于后端服务器性能不均的情况；<br><strong>ip_hash</strong>:  每个请求按访问 IP 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以解决动态网页 session 共享问题。负载均衡每次请求都会重新定位到服务器集群中的某一个，那么已经登录某一个服务器的用户再重新定位到另一个服务器，其登录信息将会丢失，这样显然是不妥的；<br><strong>fair</strong>（第三方）:   按后端服务器的响应时间分配，响应时间短的优先分配，依赖第三方插件 <strong>nginx-upstream-fair</strong>，需要先安装</p>
+<h3 id="配置动静分离"><a href="#配置动静分离" class="headerlink" title="配置动静分离"></a>配置动静分离</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location /www/ &#123;</span><br><span class="line">  	root /data/;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  location /image/ &#123;</span><br><span class="line">  	root /data/;</span><br><span class="line">    autoindex on;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p>方式主要有两种，一种 是纯粹把静态文件独立成单独的域名，放在独立的服务器上，也是目前主流推崇的方案。另外一种方法就是动态跟静态文件混合在一起发布， 通过 Nginx 配置来分开。</p>
+<p>通过 <code>location</code> 指定不同的后缀名实现不同的请求转发。通过 <code>expires</code> 参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。具体 expires 定义：是给一个资源设定一个过期时间，也就是说无需去服务端验证，直接通过浏览器自身确认是否过期即可，所以不会产生额外的流量。此种方法非常适合不经常变动的资源。（如果经常更新的文件，不建议使用 expires 来缓存），我这里设置 3d，表示在这 3 天之内访问这个URL，发送一个请求，比对服务器该文件最后更新时间没有变化。则不会从服务器抓取，返回状态码 304，如果有修改，则直接从服务器重新下载，返回状态码 200。</p>
+<h3 id="配置高可用"><a href="#配置高可用" class="headerlink" title="配置高可用"></a>配置高可用</h3><p>首先安装 keepalived，<code>yum install keepalived -y</code><br>然后编辑 <code>/etc/keepalived/keepalived.conf</code> 配置文件，并在配置文件中增加 <code>vrrp_script</code> 定义一个外围检测机制，并在 <code>vrrp_instance</code> 中通过定义 <code>track_script</code> 来追踪脚本执行过程，实现节点转移</p>
+<div class="tabs" id="tab-second"><ul class="nav-tabs"><li class="tab active"><a class="#second-1">keeplived配置</a></li><li class="tab"><a class="#second-2">check-health</a></li></ul><div class="tab-content"><div class="tab-pane active" id="second-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">global_defs&#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">        acassen@firewall.loc</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from Alexandre@firewall.loc</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30 // 上面都是邮件配置，没卵用</span><br><span class="line">   router_id LVS_DEVEL     // 当前服务器名字，用hostname命令来查看</span><br><span class="line">&#125;</span><br><span class="line">vrrp_script chk_maintainace &#123; // 检测机制的脚本名称为chk_maintainace</span><br><span class="line">    script <span class="string">&quot;[[ -e/etc/keepalived/down ]] &amp;&amp; exit 1 || exit 0&quot;</span> // 可以是脚本路径或脚本命令</span><br><span class="line">    // script <span class="string">&quot;/etc/keepalived/nginx_check.sh&quot;</span>    // 比如这样的脚本路径</span><br><span class="line">    interval 2  // 每隔2秒检测一次</span><br><span class="line">    weight -20  // 当脚本执行成立，那么把当前服务器优先级改为-20</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instanceVI_1 &#123;   // 每一个vrrp_instance就是定义一个虚拟路由器</span><br><span class="line">    state MASTER      // 主机为MASTER，备用机为BACKUP</span><br><span class="line">    interface eth0    // 网卡名字，可以从ifconfig中查找</span><br><span class="line">    virtual_router_id 51 // 虚拟路由的<span class="built_in">id</span>号，一般小于255，主备机<span class="built_in">id</span>需要一样</span><br><span class="line">    priority 100      // 优先级，master的优先级比backup的大</span><br><span class="line">    advert_int 1      // 默认心跳间隔</span><br><span class="line">    authentication &#123;  // 认证机制</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111   // 密码</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;  // 虚拟地址vip</span><br><span class="line">       172.16.2.8</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="second-2"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">A=`ps -C nginx --no-header | <span class="built_in">wc</span> -l`</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$A</span> -eq 0 ];<span class="keyword">then</span></span><br><span class="line">    /usr/sbin/nginx <span class="comment"># 尝试重新启动nginx</span></span><br><span class="line">    <span class="built_in">sleep</span> 2         <span class="comment"># 睡眠2秒</span></span><br><span class="line">    <span class="keyword">if</span> [ `ps -C nginx --no-header | <span class="built_in">wc</span> -l` -eq 0 ];<span class="keyword">then</span></span><br><span class="line">        killall keepalived <span class="comment"># 启动失败，将keepalived服务杀死。将vip漂移到其它备份节点</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></div></div></div></div>
+
+<hr>
+<p>复制一份到备份服务器，备份 Nginx 的配置要将 <code>state</code> 后改为 <code>BACKUP</code>，<code>priority</code> 改为比主机小。<br>设置完毕后各自 <code>service keepalived start</code> 启动，经过访问成功之后，可以把 Master 机的 <code>keepalived</code> 停掉，此时 Master 机就不再是主机了 <code>service keepalived stop</code>，看访问虚拟 IP 时是否能够自动切换到备机 <code>ip addr</code>。<br>再次启动 Master 的 keepalived，此时 <code>vip</code> 又变到了主机上。</p>
+<h3 id="HTTPS配置"><a href="#HTTPS配置" class="headerlink" title="HTTPS配置"></a>HTTPS配置</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 443 ssl http2 default_server;   <span class="comment"># SSL 访问端口号为 443</span></span><br><span class="line">  server_name proxy.theplan.space;         <span class="comment"># 填写绑定证书的域名</span></span><br><span class="line"></span><br><span class="line">  ssl_certificate /etc/nginx/https/your_crt.crt;   <span class="comment"># 证书文件地址</span></span><br><span class="line">  ssl_certificate_key /etc/nginx/https/your_key.key;      <span class="comment"># 私钥文件地址</span></span><br><span class="line">  ssl_session_timeout 10m;</span><br><span class="line"></span><br><span class="line">  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;      <span class="comment">#请按照以下协议配置</span></span><br><span class="line">  ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE; </span><br><span class="line">  ssl_prefer_server_ciphers on;</span><br><span class="line">  </span><br><span class="line">  location / &#123;</span><br><span class="line">    root         /usr/share/nginx/html;</span><br><span class="line">    index        index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p><strong>提高安全性</strong></p>
+<ul>
+<li>add_header X-Frame-Options DENY;           # 减少点击劫持</li>
+<li>add_header X-Content-Type-Options nosniff; # 禁止服务器自动解析资源类型</li>
+<li>add_header X-Xss-Protection 1;             # 防XSS攻击</li>
+</ul>
+<h3 id="Nginx指标可用性"><a href="#Nginx指标可用性" class="headerlink" title="Nginx指标可用性"></a>Nginx指标可用性</h3><table>
+<thead>
+<tr>
+<th align="left">NAME</th>
+<th align="left">Describe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>accepts</code></td>
+<td align="left">（接受） &#x2F; accepted（已接受）</td>
+</tr>
+<tr>
+<td align="left"><code>handled</code></td>
+<td align="left">（已处理）</td>
+</tr>
+<tr>
+<td align="left"><code>dropped</code></td>
+<td align="left">（已丢弃）</td>
+</tr>
+<tr>
+<td align="left"><code>active </code></td>
+<td align="left">（活跃）</td>
+</tr>
+<tr>
+<td align="left"><code>request</code></td>
+<td align="left">（请求数）&#x2F; total（全部请求数）</td>
+</tr>
+<tr>
+<td align="left"><code>4xx 代</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>5xx 代</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>request time</code></td>
+<td align="left">（请求处理时间）</td>
+</tr>
+</tbody></table>
+<h3 id="配置-stub-status模块"><a href="#配置-stub-status模块" class="headerlink" title="配置 stub status模块"></a>配置 stub status模块</h3><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 检查模块是否启用</span></span><br><span class="line">nginx -V 2&gt;&amp;1 | grep -o with-http_stub_status_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启配置</span></span><br><span class="line">server &#123;</span><br><span class="line">    location /nginx_status &#123;</span><br><span class="line">        stub_status on;             <span class="comment"># 开启模块</span></span><br><span class="line">        allow 127.0.0.1;            <span class="comment"># 添加白名单</span></span><br><span class="line">        deny all;                   <span class="comment"># 拒绝 all访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证文件</span></span><br><span class="line">nginx -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启nginx</span></span><br><span class="line">systemctl restart nginx </span><br></pre></td></tr></table></figure></div>
+<h5 id="查看前端结果"><a href="#查看前端结果" class="headerlink" title="查看前端结果"></a>查看前端结果</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/lipaysamart/Blog-pic/20230416095800.png"
+                      alt="link"
+                ></p>
+<h3 id="常用技巧"><a href="#常用技巧" class="headerlink" title="常用技巧"></a>常用技巧</h3><h5 id="静态服务"><a href="#静态服务" class="headerlink" title="静态服务"></a>静态服务</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80;</span><br><span class="line">  server_name  static.theplan.space;</span><br><span class="line">  charset utf-8;    <span class="comment"># 防止中文文件名乱码</span></span><br><span class="line"></span><br><span class="line">  location /download &#123;</span><br><span class="line">    <span class="built_in">alias</span>	          /usr/share/nginx/html/static;  <span class="comment"># 静态资源目录</span></span><br><span class="line">    </span><br><span class="line">    autoindex               on;    <span class="comment"># 开启静态资源列目录</span></span><br><span class="line">    autoindex_exact_size    off;   <span class="comment"># on(默认)显示文件的确切大小，单位是byte；off显示文件大概大小，单位KB、MB、GB</span></span><br><span class="line">    autoindex_localtime     off;   <span class="comment"># off(默认)时显示的文件时间为GMT时间；on显示的文件时间为服务器时间</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="图片防盗链"><a href="#图片防盗链" class="headerlink" title="图片防盗链"></a>图片防盗链</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80;        </span><br><span class="line">  server_name  *.theplan.space theplan.space;</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 图片防盗链</span></span><br><span class="line">  location ~* \.(gif|jpg|jpeg|png|bmp|swf)$ &#123;</span><br><span class="line">    valid_referers none blocked server_names ~\.google\. ~\.baidu\. *.qq.com;  <span class="comment"># 只允许本机 IP 外链引用，感谢 @木法传 的提醒，将百度和谷歌也加入白名单</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$invalid_referer</span>)&#123;</span><br><span class="line">      <span class="built_in">return</span> 403;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="请求过滤"><a href="#请求过滤" class="headerlink" title="请求过滤"></a>请求过滤</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非指定请求全返回 403</span></span><br><span class="line"><span class="keyword">if</span> ( <span class="variable">$request_method</span> !~ ^(GET|POST|HEAD)$ ) &#123;</span><br><span class="line">  <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location / &#123;</span><br><span class="line">  <span class="comment"># IP访问限制（只允许IP是 192.168.0.2 机器访问）</span></span><br><span class="line">  allow 192.168.0.2;</span><br><span class="line">  deny all;</span><br><span class="line">  </span><br><span class="line">  root   html;</span><br><span class="line">  index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="配置图片、字体等静态文件缓存"><a href="#配置图片、字体等静态文件缓存" class="headerlink" title="配置图片、字体等静态文件缓存"></a>配置图片、字体等静态文件缓存</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 由于图片、字体、音频、视频等静态文件在打包的时候通常会增加了 hash，所以缓存可以设置的长一点，先设置强制缓存，再设置协商缓存；如果存在没有 hash 值的静态文件，建议不设置强制缓存，仅通过协商缓存判断是否需要使用缓存。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片缓存时间设置</span></span><br><span class="line">location ~ .*\.(css|js|jpg|png|gif|swf|woff|woff2|eot|svg|ttf|otf|mp3|m4a|aac|txt)$ &#123;</span><br><span class="line">	expires 10d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果不希望缓存</span></span><br><span class="line">expires -1;</span><br><span class="line">15.5 单页面项目 <span class="built_in">history</span> 路由配置</span><br><span class="line">server &#123;</span><br><span class="line">  listen       80;</span><br><span class="line">  server_name  fe.theplan.space;</span><br><span class="line">  </span><br><span class="line">  location / &#123;</span><br><span class="line">    root       /usr/share/nginx/html/dist;  <span class="comment"># vue 打包后的文件夹</span></span><br><span class="line">    index      index.html index.htm;</span><br><span class="line">    try_files  <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html @rewrites;  </span><br><span class="line">    </span><br><span class="line">    expires -1;                          <span class="comment"># 首页一般没有强制缓存</span></span><br><span class="line">    add_header Cache-Control no-cache;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 接口转发，如果需要的话</span></span><br><span class="line">  <span class="comment">#location ~ ^/api &#123;</span></span><br><span class="line">  <span class="comment">#  proxy_pass http://be.theplan.space;</span></span><br><span class="line">  <span class="comment">#&#125;</span></span><br><span class="line">  </span><br><span class="line">  location @rewrites &#123;</span><br><span class="line">    rewrite ^(.+)$ /index.html <span class="built_in">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="HTTP-请求转发到-HTTPS"><a href="#HTTP-请求转发到-HTTPS" class="headerlink" title="HTTP 请求转发到 HTTPS"></a>HTTP 请求转发到 HTTPS</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置完 HTTPS 后，浏览器还是可以访问 HTTP 的地址 http://theplan.space/ 的，可以做一个 301 跳转，把对应域名的 HTTP 请求重定向到 HTTPS 上</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen      80;</span><br><span class="line">    server_name www.theplan.space;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 单域名重定向</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$host</span> = <span class="string">&#x27;www.theplan.space&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">return</span> 301 https://www.theplan.space<span class="variable">$request_uri</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 全局非 https 协议时重定向</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$scheme</span> != <span class="string">&#x27;https&#x27;</span>) &#123;</span><br><span class="line">        <span class="built_in">return</span> 301 https://$server_name<span class="variable">$request_uri</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 或者全部重定向</span></span><br><span class="line">    <span class="built_in">return</span> 301 https://$server_name<span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 以上配置选择自己需要的即可，不用全部加</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="泛域名路径分离"><a href="#泛域名路径分离" class="headerlink" title="泛域名路径分离"></a>泛域名路径分离</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这是一个非常实用的技能，经常有时候我们可能需要配置一些二级或者三级域名，希望通过 Nginx 自动指向对应目录，比如：</span></span><br><span class="line"></span><br><span class="line">test1.doc.theplan.space 自动指向 /usr/share/nginx/html/doc/test1 服务器地址；</span><br><span class="line">test2.doc.theplan.space 自动指向 /usr/share/nginx/html/doc/test2 服务器地址；</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  ~^([\w-]+)\.doc\.sherlocked93\.club$;</span><br><span class="line"></span><br><span class="line">    root /usr/share/nginx/html/doc/<span class="variable">$1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="泛域名转发"><a href="#泛域名转发" class="headerlink" title="泛域名转发"></a>泛域名转发</h5><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 和之前的功能类似，有时候我们希望把二级或者三级域名链接重写到我们希望的路径，让后端就可以根据路由解析不同的规则：</span></span><br><span class="line"></span><br><span class="line">test1.serv.theplan.space/api?name=a 自动转发到 127.0.0.1:8080/test1/api?name=a；</span><br><span class="line">test2.serv.theplan.space/api?name=a 自动转发到 127.0.0.1:8080/test2/api?name=a ；</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name ~^([\w-]+)\.serv\.sherlocked93\.club$;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_set_header        X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header        Host <span class="variable">$http_host</span>;</span><br><span class="line">        proxy_set_header        X-NginX-Proxy <span class="literal">true</span>;</span><br><span class="line">        proxy_pass              http://127.0.0.1:8080/$1<span class="variable">$request_uri</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
-        <category>Python</category>
+        <category>Middle-Operator</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -327,6 +494,17 @@
       <tags>
         <tag>Windows</tag>
         <tag>Scoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python的URLlib模块</title>
+    <url>/2023/04/14/Python%E7%9A%84URLlib%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
