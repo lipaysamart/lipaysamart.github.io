@@ -15,20 +15,20 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/03/24/helm-charts-中文指南/"/>
+    <link rel="canonical" href="http://example.com/2023/03/26/kubernetes-operator/helm-模板开发/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Helm包管理helm指令参数helm简单示例helm常用用法12345678910111213141516171819202122232425helm completion                         # 生成指定shell的自动补全脚本helm create                             # 用给定的名称创建一个新的图表helm dependenc">
+        <meta name="description" content="内置对象12345678910111213141516171819202122232425262728293031Release:该对象描述了 release 本身的相关信息，它内部有几个对象：Release.Name：release 名称Release.Namespace：release 安装到的命名空间Release.IsUpgrade：如果当前操作是升级或回滚，则该值为 trueReleas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Helm Charts 中文指南">
-<meta property="og:url" content="http://example.com/2023/03/24/Helm-Charts-%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:title" content="Helm 模板开发">
+<meta property="og:url" content="http://example.com/2023/03/26/Kubernetes-Operator/Helm-%E6%A8%A1%E6%9D%BF%E5%BC%80%E5%8F%91/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Helm包管理helm指令参数helm简单示例helm常用用法12345678910111213141516171819202122232425helm completion                         # 生成指定shell的自动补全脚本helm create                             # 用给定的名称创建一个新的图表helm dependenc">
+<meta property="og:description" content="内置对象12345678910111213141516171819202122232425262728293031Release:该对象描述了 release 本身的相关信息，它内部有几个对象：Release.Name：release 名称Release.Namespace：release 安装到的命名空间Release.IsUpgrade：如果当前操作是升级或回滚，则该值为 trueReleas">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-24T10:18:59.000Z">
-<meta property="article:modified_time" content="2023-04-01T16:36:17.862Z">
+<meta property="article:published_time" content="2023-03-26T06:55:47.000Z">
+<meta property="article:modified_time" content="2023-04-16T12:54:56.661Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Helm">
 <meta property="article:tag" content="Kubernetes">
@@ -43,7 +43,7 @@
     
     <title>
         
-            Helm Charts 中文指南 -
+            Helm 模板开发 -
         
         Hlyxp-Note
     </title>
@@ -364,7 +364,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">Helm Charts 中文指南</h1>
+                    <h1 class="article-title-regular">Helm 模板开发</h1>
                 </div>
             
                 
@@ -386,15 +386,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-03-24 18:18:59</span>
-        <span class="mobile">2023-03-24 18:18</span>
+        <span class="desktop">2023-03-26 14:55:47</span>
+        <span class="mobile">2023-03-26 14:55</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-04-02 00:36:17</span>
-            <span class="mobile">2023-04-02 00:36</span>
+            <span class="desktop">2023-04-16 20:54:56</span>
+            <span class="mobile">2023-04-16 20:54</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -431,12 +431,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.2k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>664 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>2 分钟</span>
         </span>
     
     
@@ -448,27 +448,10 @@
             
 
             <div class="article-content markdown-body">
-                <h3 id="Helm包管理"><a href="#Helm包管理" class="headerlink" title="Helm包管理"></a>Helm包管理</h3><div class="tabs" id="tab-helm"><ul class="nav-tabs"><li class="tab active"><a class="#helm-1">helm指令参数</a></li><li class="tab"><a class="#helm-2">helm简单示例</a></li><li class="tab"><a class="#helm-3">helm常用用法</a></li></ul><div class="tab-content"><div class="tab-pane active" id="helm-1"><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">helm completion                         <span class="comment"># 生成指定shell的自动补全脚本</span></span><br><span class="line">helm create                             <span class="comment"># 用给定的名称创建一个新的图表</span></span><br><span class="line">helm dependency                         <span class="comment"># 管理图表的依赖关系</span></span><br><span class="line">helm <span class="built_in">env</span>                                <span class="comment"># helm客户端环境信息</span></span><br><span class="line">helm get                                <span class="comment"># 下载命名发布的扩展信息</span></span><br><span class="line">helm <span class="built_in">history</span>                            <span class="comment"># 获取发布历史</span></span><br><span class="line">helm install                            <span class="comment"># 安装一个图表</span></span><br><span class="line">helm lint                               <span class="comment"># 检查一个图表是否有可能的问题</span></span><br><span class="line">helm list                               <span class="comment"># 列出发布</span></span><br><span class="line">helm package                            <span class="comment"># 将一个图表目录打包成一个图表存档</span></span><br><span class="line">helm plugin                             <span class="comment"># 安装、列出或卸载Helm插件</span></span><br><span class="line">helm pull                               <span class="comment"># 从仓库下载一个图表并（可选地）在本地目录解压它</span></span><br><span class="line">helm push                               <span class="comment"># 将一个图表推送到远程</span></span><br><span class="line">helm registry                           <span class="comment"># 登录或登出一个注册表</span></span><br><span class="line">helm repo                               <span class="comment"># 添加、列出、移除、更新和索引图表仓库</span></span><br><span class="line">helm rollback                           <span class="comment"># 将一个发布回滚到之前的修订版</span></span><br><span class="line">helm search                             <span class="comment"># 在图表中搜索一个关键词</span></span><br><span class="line">helm show                               <span class="comment"># 显示一个图表的信息</span></span><br><span class="line">helm status                             <span class="comment"># 显示命名发布的状态</span></span><br><span class="line">helm template                           <span class="comment"># 在本地渲染模板</span></span><br><span class="line">helm <span class="built_in">test</span>                               <span class="comment"># 运行一个发布的测试</span></span><br><span class="line">helm uninstall                          <span class="comment"># 卸载一个发布</span></span><br><span class="line">helm upgrade                            <span class="comment"># 升级一个发布</span></span><br><span class="line">helm verify                             <span class="comment"># 验证给定路径的图表是否已经签名并且有效</span></span><br><span class="line">helm version                            <span class="comment"># 打印客户端版本信息</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="helm-2"><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">helm</span> <span class="string">upgrade</span> <span class="string">&lt;RELEASE&gt;</span> <span class="string">&lt;CHART&gt;</span> <span class="string">&lt;flags&gt;</span>  <span class="comment"># 更新release配置</span></span><br><span class="line"><span class="string">helm</span> <span class="string">rollback</span> <span class="string">&lt;RELEASE&gt;</span> <span class="string">&lt;REVISION&gt;</span>      <span class="comment"># 回滚升级前的版本 </span></span><br><span class="line"><span class="string">helm</span> <span class="string">get</span> <span class="string">&lt;COMMEND&gt;</span> <span class="string">&lt;RELEASE_NAME&gt;</span>       <span class="comment"># 获取release的配置</span></span><br><span class="line"><span class="string">helm</span> <span class="string">history</span> [<span class="string">RELEASE</span>]                  <span class="comment"># 查看历史版本号</span></span><br><span class="line"><span class="string">helm</span> <span class="string">template</span> [<span class="string">NAME</span>] [<span class="string">CHART</span>] [<span class="string">flags</span>]    <span class="comment"># 用于在本地渲染图表模板并显示输出</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="helm-3"></div></div></div>
+                <h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Release:该对象描述了 release 本身的相关信息，它内部有几个对象：</span><br><span class="line"></span><br><span class="line">Release.Name：release 名称</span><br><span class="line">Release.Namespace：release 安装到的命名空间</span><br><span class="line">Release.IsUpgrade：如果当前操作是升级或回滚，则该值为 true</span><br><span class="line">Release.IsInstall：如果当前操作是安装，则将其设置为 true</span><br><span class="line">Release.Revision：release 的 revision 版本号，在安装的时候，值为1，每次升级或回滚都会增加</span><br><span class="line">Reelase.Service：渲染当前模板的服务，在 Helm 上，实际上该值始终为 Helm</span><br><span class="line">Values：从 values.yaml 文件和用户提供的 values 文件传递到模板的 Values 值，默认情况下，Values 是空的。</span><br><span class="line"></span><br><span class="line">Chart：获取 Chart.yaml 文件的内容，该文件中的任何数据都可以访问，例如 &#123;&#123; .Chart.Name &#125;&#125;-&#123;&#123; .Chart.Version&#125;&#125; 可以渲染成 mychart-0.1.0，该对象下面可用的字段前面我们已经提到过了。</span><br><span class="line">Files：可以访问 chart 中的所有非特殊文件，虽然无法使用它来访问模板文件，但是可以来访问 chart 中的其他文件。</span><br><span class="line"></span><br><span class="line">Files.Get：用于根据名称获取文件（比如 .Files.Get config.ini）</span><br><span class="line">Files.GetBytes：用于以 bytes 数组而不是字符串的形式来获取文件内容的函数，这对于类似于图片之类的东西很有用</span><br><span class="line">Files.Glob：用于返回名称于给定的 shell glob 模式匹配的文件列表</span><br><span class="line">Files.Lines：可以逐行读取文件的函数，对于遍历文件中的每行内容很有用</span><br><span class="line">Files.AsSecrets：将文件内容以 Base64 编码的字符串返回的函数</span><br><span class="line">Files.AsConfig：将文件正文作为 YAML 字典返回的函数</span><br><span class="line">Capabilities：提供了获取有关 Kubernetes 集群支持功能的信息的对象</span><br><span class="line"></span><br><span class="line">Capabilities.APIVersions：支持的版本集合</span><br><span class="line">Capabilities.APIVersions.Has $version：判断一个版本（比如 batch/v1）或资源（比如 apps/v1/Deployment）是否可用</span><br><span class="line">Capabilities.Kube.Version：Kubernetes 的版本</span><br><span class="line">Capabilities.Kube：是 Kubernetes 版本的缩写</span><br><span class="line">Capabilities.Kube.Major：Kubernetes 主版本</span><br><span class="line">Capabilities.Kube.Minor：Kubernetes 的次版本</span><br><span class="line">Template：包含当前正在执行的模板的相关信息</span><br><span class="line"></span><br><span class="line">Name：当前模板的命名空间文件路径（比如 mychart/templates/mytemplate.yaml）</span><br><span class="line">BaePath：当前 chart 的模板目录的命名空间路径（比如 mychart/templates）</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="Template模板文件"><a href="#Template模板文件" class="headerlink" title="Template模板文件"></a>Template模板文件</h4><p>所有模板文件都存储在 chart 的 templates&#x2F; 目录下面，当 Helm 渲染 charts 的时候，它将通过模板引擎传递该目录中的每个文件。模板的 Values 可以通过两种方式提供：</p>
-<ul>
-<li>Chart 开发人员可以在 chart 内部提供一个名为 values.yaml 的文件，该文件可以包含默认的 values 值内容。</li>
-<li>Chart 用户可以提供包含 values 值的 YAML 文件，可以在命令行中通过 helm install 来指定该文件。<br>当用户提供自定义 values 值的时候，这些值将覆盖 chart 中 values.yaml 文件中的相应的值。</li>
-</ul>
-<h3 id="Charts文件结构"><a href="#Charts文件结构" class="headerlink" title="Charts文件结构"></a>Charts文件结构</h3><p>chart 被组织为一个目录中的文件集合，目录名称就是 chart 的名称（不包含版本信息）下面是一个 WordPress 的 chart  </p>
-<div class="tabs" id="tab-second-helm"><ul class="nav-tabs"><li class="tab active"><a class="#second-helm-1">文件结构</a></li><li class="tab"><a class="#second-helm-2">charts.yaml示例</a></li></ul><div class="tab-content"><div class="tab-pane active" id="second-helm-1"><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">wordpress/</span></span><br><span class="line">  <span class="string">Chart.yaml</span>                        <span class="comment"># 包含当前 chart 信息的 YAML 文件</span></span><br><span class="line">  <span class="string">LICENSE</span>                           <span class="comment"># 可选：包含 chart 的 license 的文本文件</span></span><br><span class="line">  <span class="string">README.md</span>                         <span class="comment"># 可选：一个可读性高的 README 文件</span></span><br><span class="line">  <span class="string">values.yaml</span>                       <span class="comment"># 当前 chart 的默认配置 values</span></span><br><span class="line">  <span class="string">values.schema.json</span>                <span class="comment"># 可选: 一个作用在 values.yaml 文件上的 JSON 模式</span></span><br><span class="line">  <span class="string">charts/</span>                           <span class="comment"># 包含该 chart 依赖的所有 chart 的目录</span></span><br><span class="line">  <span class="string">crds/</span>                             <span class="comment"># Custom Resource Definitions</span></span><br><span class="line">  <span class="string">templates/</span>                        <span class="comment"># 模板目录，与 values 结合使用时，将渲染生成 Kubernetes 资源清单文件</span></span><br><span class="line">  <span class="string">templates/NOTES.txt</span>               <span class="comment"># 可选: 包含简短使用使用的文本文件</span></span><br></pre></td></tr></table></figure></div></div><div class="tab-pane" id="second-helm-2"><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">chart</span> <span class="string">API</span> <span class="string">版本</span> <span class="string">(必须)</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">chart</span> <span class="string">名</span> <span class="string">(必须)</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">SemVer</span> <span class="number">2</span><span class="string">版本</span> <span class="string">(必须)</span></span><br><span class="line"><span class="attr">kubeVersion:</span> <span class="string">兼容的</span> <span class="string">Kubernetes</span> <span class="string">版本</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">一句话描述</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">chart</span> <span class="string">类型</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">当前项目关键字集合</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">当前项目的</span> <span class="string">URL</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">sources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">当前项目源码</span> <span class="string">URL</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">dependencies:</span> <span class="comment"># chart 依赖列表 (可选)</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">chart</span> <span class="string">名称</span> <span class="string">(nginx)</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">chart</span> <span class="string">版本</span> <span class="string">(&quot;1.2.3&quot;)</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">仓库地址</span> <span class="string">(&quot;https://example.com/charts&quot;)</span></span><br><span class="line"><span class="attr">maintainers:</span> <span class="comment"># (可选)</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">维护者名字</span> <span class="string">(对每个</span> <span class="string">maintainer</span> <span class="string">是必须的)</span></span><br><span class="line">    <span class="attr">email:</span> <span class="string">维护者的</span> <span class="string">email</span> <span class="string">(可选)</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">维护者</span> <span class="string">URL</span> <span class="string">(可选)</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">chart</span> <span class="string">的</span> <span class="string">SVG</span> <span class="string">或者</span> <span class="string">PNG</span> <span class="string">图标</span> <span class="string">URL</span> <span class="string">(可选).</span></span><br><span class="line"><span class="attr">appVersion:</span> <span class="string">包含的应用程序版本</span> <span class="string">(可选).</span> <span class="string">不需要</span> <span class="string">SemVer</span> <span class="string">版本</span></span><br><span class="line"><span class="attr">deprecated:</span> <span class="string">chart</span> <span class="string">是否已被弃用</span> <span class="string">(可选,</span> <span class="string">boolean)</span></span><br></pre></td></tr></table></figure></div></div></div></div>
-
-
-
-<h5 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h5><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deis-database</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">deis</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/managed-by:</span> <span class="string">deis</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">deis-database</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/name:</span> <span class="string">deis-database</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">deis-database</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">deis-database</span></span><br><span class="line">          <span class="attr">image:</span> &#123;&#123; <span class="string">.Values.imageRegistry</span> &#125;&#125;<span class="string">/postgres:&#123;&#123;</span> <span class="string">.Values.dockerTag</span> <span class="string">&#125;&#125;</span>     <span class="comment"># docker镜像仓库 &amp;docker 镜像 TAG</span></span><br><span class="line">          <span class="attr">imagePullPolicy:</span> &#123;&#123; <span class="string">.Values.pullPolicy</span> &#125;&#125;  <span class="comment"># 镜像拉取策略</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">5432</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">DATABASE_STORAGE</span></span><br><span class="line">              <span class="attr">value:</span> &#123;&#123; <span class="string">default</span> <span class="string">&quot;minio&quot;</span> <span class="string">.Values.storage</span> &#125;&#125;  <span class="comment"># 存储后端默认设置为 &#x27;minio&#x27;</span></span><br></pre></td></tr></table></figure></div>
-
-<h5 id="为模板提供一些必须的-values-值的-values-yaml-文件如下所示："><a href="#为模板提供一些必须的-values-值的-values-yaml-文件如下所示：" class="headerlink" title="为模板提供一些必须的 values 值的 values.yaml 文件如下所示："></a>为模板提供一些必须的 values 值的 values.yaml 文件如下所示：</h5><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">imageRegistry:</span> <span class="string">&quot;quay.io/deis&quot;</span></span><br><span class="line"><span class="attr">dockerTag:</span> <span class="string">&quot;latest&quot;</span></span><br><span class="line"><span class="attr">pullPolicy:</span> <span class="string">&quot;Always&quot;</span></span><br><span class="line"><span class="attr">storage:</span> <span class="string">&quot;s3&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>values 文件的格式是 YAML，一个 chart 包可能包含一个默认的 values.yaml 文件，helm install 命令允许用户通过提供其他的 YAML 值文件来覆盖默认的值：</p>
-<p><code>helm install --values=myvals.yaml wordpress</code><br>用这种方式来传递 values 值的时候，它们将合并到默认值文件中，比如有一个 myvals.yaml 文件如下所示：</p>
-<p><code>storage: &quot;gcs&quot;</code><br>将其与 chart 的 values.yaml 文件合并后，得到的结果为：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">imageRegistry:</span> <span class="string">&quot;quay.io/deis&quot;</span></span><br><span class="line"><span class="attr">dockerTag:</span> <span class="string">&quot;latest&quot;</span></span><br><span class="line"><span class="attr">pullPolicy:</span> <span class="string">&quot;Always&quot;</span></span><br><span class="line"><span class="attr">storage:</span> <span class="string">&quot;gcs&quot;</span></span><br></pre></td></tr></table></figure></div>
-<p>我们可以看到只有最后一个字段被覆盖了。</p>
+<hr>
+<p>需要注意的是内置的对象始终是以大写字母开头的，这也是符合 Go 的命名约定的，创建自己的名称的时候，可以自由使用适合你团队的约定，一些团队，比如 Kubernetes Charts 团队，选择仅使用首字母小写，以区分本地名称和内置名称，这里我们也会遵循该约定。</p>
 
             </div>
 
@@ -476,16 +459,16 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> Helm Charts 中文指南</li>
+        <li><strong>标题:</strong> Helm 模板开发</li>
         <li><strong>作者:</strong> 人生无常，大肠包小肠</li>
-        <li><strong>创建于:</strong> 2023-03-24 18:18:59</li>
+        <li><strong>创建于:</strong> 2023-03-26 14:55:47</li>
         
             <li>
-                <strong>更新于:</strong> 2023-04-02 00:36:17
+                <strong>更新于:</strong> 2023-04-16 20:54:56
             </li>
         
         <li>
-            <strong>链接:</strong> https://lipaysamart.github.io/2023/03/24/Helm-Charts-中文指南/
+            <strong>链接:</strong> https://lipaysamart.github.io/2023/03/26/Kubernetes-Operator/Helm-模板开发/
         </li>
         <li>
             <strong>版权声明:</strong> 本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 进行许可。
@@ -518,13 +501,13 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/03/26/Helm-%E6%A8%A1%E6%9D%BF%E5%BC%80%E5%8F%91/"
+                            href="/2023/04/01/Scoop%E6%89%93%E9%80%A0windows%E4%B8%8A%E5%BA%94%E7%94%A8%E6%BA%90%E4%BB%93%E5%BA%93/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Helm 模板开发</span>
+                                    <span class="post-nav-title-item">Scoop打造windows上应用源仓库</span>
                                     <span class="post-nav-item">上一篇</span>
                                 </span>
                             </a>
@@ -534,10 +517,10 @@
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/03/23/Linux-Zsh-%E4%BD%BF%E7%94%A8-oh-my-zsh-%E6%89%93%E9%80%A0%E9%AB%98%E6%95%88%E4%BE%BF%E6%8D%B7%E7%9A%84-shell-%E7%8E%AF%E5%A2%83/"
+                            href="/2023/03/24/Kubernetes-Operator/Helm-Charts-%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Linux Zsh + oh-my-zsh 打造高效便捷的 shell 环境</span>
+                                    <span class="post-nav-title-item">Helm Charts 中文指南</span>
                                     <span class="post-nav-item">下一篇</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -558,8 +541,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">此页目录</div>
-        <div class="page-title">Helm Charts 中文指南</div>
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Helm%E5%8C%85%E7%AE%A1%E7%90%86"><span class="nav-text">Helm包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Template%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="nav-text">Template模板文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Charts%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-text">Charts文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="nav-text">模板文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E6%A8%A1%E6%9D%BF%E6%8F%90%E4%BE%9B%E4%B8%80%E4%BA%9B%E5%BF%85%E9%A1%BB%E7%9A%84-values-%E5%80%BC%E7%9A%84-values-yaml-%E6%96%87%E4%BB%B6%E5%A6%82%E4%B8%8B%E6%89%80%E7%A4%BA%EF%BC%9A"><span class="nav-text">为模板提供一些必须的 values 值的 values.yaml 文件如下所示：</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">Helm 模板开发</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-text">内置对象</span></a></li></ol>
 
     </div>
 </div>
